@@ -12,10 +12,12 @@ Singleton {
     // Colors //
     ////////////
     property color maincolor: BaseAppearance.basec
+    property color secondarycolor: BaseAppearance.basesecondc
     property color maintext: BaseAppearance.basetext
     property color mainpanel: BaseAppearance.basepanel
     property color mainoutline: BaseAppearance.baseoutline
-    property color mainworkspace: BaseAppearance.baseworkspace
+    property color inactiveworkspace: BaseAppearance.baseworkspace
+    
 
     ///////////
     // Fonts //

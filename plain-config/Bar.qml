@@ -18,7 +18,7 @@ Scope {
             required property var modelData
             id: panel
             screen: modelData
-            implicitHeight: screen.height * (2.32/100) // 2.32% of the screens width is the vert bar
+            implicitHeight: screen.height * (2.32/100) // 2.32% of the screens height is the bars reserved space
             color: Appearance.mainpanel
             // surfaceFormat {opaque:false}
             anchors {
@@ -38,21 +38,23 @@ Scope {
             RowLayout {
                 id: leftrow
                 anchors {
+                    horizontalCenter: parent.horizontalCenter
                     verticalCenter: parent.verticalCenter
                     left: parent.left
                     // rightMargin: parent.width/70
                 }
                 opacity: Appearance.mainTextOpacity
-                implicitHeight: barrect.height
+                implicitHeight: panel.height
+                implicitWidth: barrect.width/3
+                uniformCellSizes: true
                 TempWorkspace {
                     // Layout vars to align widget
-                    Layout.alignment: Qt.AlignVCenter
-                    Layout.maximumWidth: itemwidth*20
-                    // Layout.topMargin: barrect.height * 0.3
+                    Layout.maximumWidth: itemwidth*15
+                    Layout.topMargin:(leftrow.height - itemheight)/2
                     Layout.leftMargin: 10
-                    // values supplied to TempWorkspace Widget
-                    itemwidth: Appearance.mainfontsize*1.1 // 1.95 with text
-                    itemheight: itemwidth
+                    // Values supplied to TempWorkspace Widget
+                    // itemwidth: (Appearance.mainfontsize*1.15) // 1.95 with text
+                    // itemheight: itemwidth
                     rectrad: itemwidth * 0.5
                 }
             }
@@ -61,7 +63,9 @@ Scope {
                 anchors.centerIn: parent
                 spacing: parent.width/250
                 opacity: Appearance.mainTextOpacity
-                
+                implicitWidth: barrect.width/3
+                implicitHeight: barrect.height
+                uniformCellSizes: true
                 ClockWidget {
                     Layout.alignment: Qt.AlignVCenter
                     //timetext: Time.time
@@ -76,7 +80,10 @@ Scope {
                     right: parent.right
                     rightMargin: parent.width/70
                 }
+                uniformCellSizes: true
                 spacing: parent.width/250
+                implicitWidth: barrect.width/3
+                implicitHeight: barrect.height
                 opacity: Appearance.mainTextOpacity
                 BatteryWidget {
                     // spacing: screen.width / 70

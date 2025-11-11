@@ -1,4 +1,4 @@
-//  TempWorkspace.qml
+// TempWorkspace.qml
 // Temporary workspace file for testing stuff till i make a better layout and file
 import QtQuick
 import QtQuick.Controls
@@ -10,38 +10,45 @@ import qs.modules
 import qs.modules.components
 
 Item {
-    property real itemwidth: (Appearance.mainfontsize + 15)
+    id: workroot
+    property real itemwidth: (Appearance.mainfontsize*1.2)
     property real itemheight: itemwidth
     property real rectrad: itemwidth/2
     property var listorient: ListView.Horizontal
-    width: itemwidth*10
-    height: itemheight*10
+    implicitWidth: itemwidth*14.8
+    implicitHeight: itemheight*14.8
     ListView {
+        id: listv
         model: Hyprland.workspaces
         orientation: listorient
-        spacing: 6
+        spacing: 7
         anchors.fill: parent
         // anchors.fill: parent
         delegate: Item {
             id: root
-            property string ids: modelData.id
+            required property var modelData
+            property int ids: modelData.id
             property string actives: modelData.active
             property string color1: Appearance.maintext
             // property string rectcolor: "transparent"
+            readonly property bool isurgent: modelData.urgent //&& HyprlandWorkspace.id == root.ids
             readonly property bool isworkspaceactive: Hyprland.focusedWorkspace.id == root.ids
             // breaks things anchors.fill: parent
             implicitWidth: itemwidth
             implicitHeight: itemheight
+            /* Component.onCompleted: {
+                console.log("Urgency", isurgent)
+            }*/          
             Rectangle {
                 id: textbg
                 anchors.fill: textmouse
-                color: isworkspaceactive? Appearance.maintext: Appearance.mainworkspace
+                color: isworkspaceactive? Appearance.maintext : isurgent?  Appearance.secondarycolor : Appearance.inactiveworkspace // 
                 radius: rectrad
-                opacity:isworkspaceactive? 0.9 : 1
+                opacity:isworkspaceactive? 0.9 : isurgent? 0.7 : 1
+                // add a blinking animation to urgent workspaces
             }
             MouseArea {
                 id: textmouse
-                //anchors.centerIn: texts
                 anchors.fill: root
                 hoverEnabled: true
                 onEntered: {
@@ -65,7 +72,7 @@ Item {
                     opacity: 0.4
                 }
             }
-            // text for the colors of the stuff
+            // text for the workspace ids
             /*
             Text {
                 id: texts

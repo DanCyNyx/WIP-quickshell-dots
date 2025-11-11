@@ -12,6 +12,9 @@ Singleton {
     // Color of the text. Default: '#67323b','#a92037','#ebe5ac'
     property string basetext: '#822b3a'
 
+    // Secondary Color of components. Default: '#912c2c'
+    property string basesecondc: '#417bd9'
+
     // Color of the background panel. Default: 'transparent'
     property string basepanel: 'transparent'
 

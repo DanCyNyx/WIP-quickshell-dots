@@ -13,10 +13,11 @@ Scope {
     Variants {
         model: Quickshell.screens
         PanelWindow {
+            id: vertpanel
             required property var modelData
             screen: modelData
             // implicitHeight: 30
-            implicitWidth: screen.width * (1.7/100) // 2% of the screens width is the vert bar
+            implicitWidth: screen.width * (1.7/100) // 1.7% of the screens width is the vert bar
             color: Appearance.mainpanel
             // surfaceFormat {opaque:false}
             //color: '#ebe5ac'
@@ -34,31 +35,33 @@ Scope {
                 color: Appearance.maincolor
                 opacity: Appearance.mainopacity
             }
-            ColumnLayout{
+            ColumnLayout {
                 id: topcolumn
                 anchors.top: parent.top
                 //anchors.horizontalCenter: panelRect.horizontalCenter
                 opacity: Appearance.mainTextOpacity
+                implicitWidth: vertpanel.width
+                implicitHeight: vertpanel.height/3
+                //uniformCellSizes: true
                 TempWorkspace {
                     // Values supplied to TempWorkspace Widget
                     listorient: ListView.Vertical
                     rectrad: itemwidth * 0.5
-                    itemheight: itemwidth // - 2 // 20 with text
-                    itemwidth: Appearance.mainfontsize * 1.1
+                    //itemheight: itemwidth // - 2 // 20 with text
+                    //itemwidth: (Appearance.mainfontsize * 1.1)
                     // Layout vars to align Widget
-                    // Layout.leftMargin: 9.8
+                    Layout.leftMargin: (vertpanel.width - itemwidth)/2
                     Layout.topMargin: 10
-                    Layout.maximumHeight: itemheight*20
-                    Layout.alignment: Qt.AlignHCenter
+                    Layout.maximumHeight: itemheight*15
+                    Layout.alignment: Qt.AlignTop
                 }
             }
             ColumnLayout {
                 id: middlecolumn
-                //anchors.horizontalCenter: parent.horizontalCenter
-                //anchors.verticalCenter: parent.verticalCenter
                 anchors.centerIn: parent
                 spacing: parent.height/250
                 opacity: Appearance.mainTextOpacity
+                uniformCellSizes: true
                 ClockWidget {
                     // no more time binding
                     // Set the rotation for vertical text
@@ -77,25 +80,23 @@ Scope {
                     Layout.maximumWidth: 30
                     Layout.alignment: Qt.AlignHCenter 
                 }
-                /* BatteryWidget {
-                    // anchors.horizontalCenter: parent
-                    Layout.alignment: Qt.AlignHCenter
-                }*/
             }
             ColumnLayout {
                 id: bottomcolumn
                 anchors {
                     horizontalCenter: parent.horizontalCenter
                     bottom: parent.bottom
-                    bottomMargin: parent.height/30
+                    // bottomMargin: parent.height/30
                     // verticalCenter: parent.verticalCenter
                 }
                 spacing: parent.height/250
                 opacity: Appearance.mainTextOpacity
+                uniformCellSizes: true
                 VertBatteryWidget{
                     implicitWidth: screen.width/10
                     implicitHeight: screen.height/10
                     Layout.alignment: Qt.AlignHCenter
+                    Layout.bottomMargin: vertpanel.height/30
                 }
             }
         }
