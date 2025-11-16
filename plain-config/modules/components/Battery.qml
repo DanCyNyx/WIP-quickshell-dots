@@ -5,37 +5,39 @@ import Quickshell.Services.UPower
 import qs.modules
 pragma Singleton
 
-// placeholder text
+// Battery component to get info about the system's battery from Upower 
+// TODO Battery: add functionality to remove battery info if there is no battery connected
 Singleton {
     id: root
-    property bool available: UPower.displayDevice.isLaptopBattery
-    property var chargeState: UPower.displayDevice.state
-    property bool isCharging: chargeState == UPowerDeviceState.Charging
-    property bool isPluggedIn: isCharging || chargeState == UPowerDeviceState.PendingCharge
-    property real percentage: UPower.displayDevice?.percentage ?? 1
+    // code gotten from end_4's illogical-impulse repo
+    readonly property bool available: UPower.displayDevice.isLaptopBattery
+    readonly property var chargeState: UPower.displayDevice.state
+    readonly property bool isCharging: chargeState == UPowerDeviceState.Charging
+    readonly property bool isPluggedIn: isCharging || chargeState == UPowerDeviceState.PendingCharge
+    readonly property real percentage: UPower.displayDevice?.percentage ?? 1
     // Battery levels to warn user
-    property bool battlow: available && (percentage <= 30/100)
-    property real critlevel: 10
-    property bool battcritical: available && (percentage <= critlevel/100)
+    property bool battLow: available && (percentage <= 30/100)
+    property real critLevel: 10
+    property bool battCritical: available && (percentage <= critLevel/100)
     // Max charge level of the laptop
-    property real maxbattlevel: 60
-    property bool battfull: available && (percentage >= maxbattlevel/100)
+    property real maxBattLevel: 60
+    property bool battFull: available && (percentage >= maxBattLevel/100)
     // Time left for battery  
     property real timeToEmpty: UPower.displayDevice.timeToEmpty
     property real timeToFull: UPower.displayDevice.timeToFull
     // Suspend and sound options (to be set by a different file)
     property bool automaticSuspend: true
     property bool soundEnabled: true
-    property real suspendtime: 10 // Default 10 seconds
+    property real suspendTime: 10 // Default 10 seconds
     // Booleans to use to notify user
-    property bool lowandNotCharging: battlow && !isCharging
-    property bool critandNotCharging: battcritical && !isCharging && automaticSuspend
-    property bool fullandCharging: battfull && isCharging
+    property bool lowAndNotCharging: battLow && !isCharging
+    property bool critAndNotCharging: battCritical && !isCharging && automaticSuspend
+    property bool fullAndCharging: battFull && isCharging
     ///////////////////////////////////
     // Booleans and output statements//
     ///////////////////////////////////
-    onLowandNotChargingChanged: {
-        if (!root.available || !lowandNotCharging) return;
+    onLowAndNotChargingChanged: {
+        if (!root.available || !lowAndNotCharging) return;
         Quickshell.execDetached([
             "notify-send", 
             "Low battery", 
@@ -47,21 +49,21 @@ Singleton {
         if (root.soundEnabled) Appearance.playSystemSound("dialog-warning");
     }
 
-    onCritandNotChargingChanged: {
-        if (!root.available || !critandNotCharging) return;
+    onCritAndNotChargingChanged: {
+        if (!root.available || !critAndNotCharging) return;
         Quickshell.execDetached([
             "notify-send", 
             "Battery is Critical", 
-            ("Please charge!\nAutomatic suspend triggers in %1s").arg(suspendtime), 
-
+            ("Please charge!\nAutomatic suspend triggers in %1s").arg(suspendTime), 
             "-u", "critical",
             "-a", "Shell",
             "--hint=int:transient:1",
         ])
+        suspendTimer.running = true
         if (root.soundEnabled) Appearance.playSystemSound("suspend-error");
     }
-    onFullandChargingChanged: {
-        if (!root.available || !fullandCharging) return;
+    onFullAndChargingChanged: {
+        if (!root.available || !fullAndCharging) return;
         Quickshell.execDetached([
             "notify-send",
             /* Translation.tr(*/"Battery full",
@@ -80,25 +82,18 @@ Singleton {
             Appearance.playSystemSound("power-unplug")
         }
     }
-    // Process and timer to suspend after suspendtime seconds if batt critical and not charging
+    // Process and timer to suspend after suspendTime seconds if batt critical and not charging
     Process {
         id: battsuspend
         command: ["bash","-c", `systemctl suspend || loginctl suspend`]
         running: false
     }
-    /*Timer {
-        running: true
-        repeat: true
-        interval: 100
-        onTriggered: {
-            isPluggedIn = (isCharging || chargeState == UPowerDeviceState.PendingCharge)
-        }
-    }*/
     Timer {
-        interval: 1000 * suspendtime // suspendtime seconds
-        running: true
+        id: suspendTimer
+        interval: 1000 * suspendTime // suspendTime seconds
+        running: false
         repeat: false
         // if the battery is critical and not charging after suspend time, process runs
-        onTriggered: battsuspend.running = (root.available && critandNotCharging)
+        onTriggered: battsuspend.running = (root.available && critAndNotCharging)
     }    
 }

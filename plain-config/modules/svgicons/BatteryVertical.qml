@@ -11,7 +11,7 @@ Item {
     id: __qt_toplevel
 
     property AnimationsInfo animations
-
+    property color shapefill: Appearance.mainText
     animations: AnimationsInfo {
     }
 
@@ -36,7 +36,7 @@ Item {
             id: _qt_shapePath_0
 
             strokeColor: "transparent"
-            fillColor: Appearance.maintext // default "#ff1f1f1f"
+            fillColor: shapefill // default "#ff1f1f1f"
             fillRule: ShapePath.WindingFill
 
             PathSvg {

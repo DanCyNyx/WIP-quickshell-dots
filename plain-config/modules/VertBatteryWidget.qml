@@ -10,21 +10,11 @@ import qs.modules.components
 import qs.modules
 import qs.modules.svgicons
 
-/* Rectangle {
-    id: baserect
-    implicitHeight: 204
-    implicitWidth: 852
-    color: 'transparent'
-    Rectangle {
-        id: background
-        anchors.fill: parent
-        color: Appearance.maincolor
-        opacity: Appearance.mainopacity
-    }*/
+// TODO VertBatteryWidget: allow battery info configuration from other files
 ColumnLayout {
     id: column
     // anchors.centerIn: parent
-    spacing: Appearance.mainfontsize * 2 // find a way to make this be based on screen size
+    spacing: Appearance.mainFontSize * 2 // find a way to make this be based on screen size
     implicitHeight: 100 // random height, must assign in bar
     implicitWidth: 100 // random width, must assign in bar
     Item {
@@ -33,13 +23,14 @@ ColumnLayout {
         // Battery icon creation file
         BatteryVertical {
             id: battIcon
-            implicitWidth: 6 * Appearance.mainfontsize / 2
+            implicitWidth: 6 * Appearance.mainFontSize / 2
             implicitHeight: width * 1.1
             anchors.centerIn: overseer
+            
         }
         // Rectangle to act as charging bar
         Rectangle {
-            id: battbar
+            id: battBar
             implicitWidth: battIcon.width - battIcon.width / 1.29
             // Battery.percentage * conversion for icon height to bar max height
             implicitHeight: battIcon.height / 1.81 * Battery.percentage 
@@ -48,23 +39,23 @@ ColumnLayout {
             // Margins to prevent bar from going beyond icon area
             anchors.bottomMargin: battIcon.height / 5.5
             anchors.leftMargin: battIcon.width / 2.588
-            color: Appearance.maintext
-            radius: Appearance.mainfontsize / 11
+            color: battIcon.shapefill
+            radius: Appearance.mainFontSize / 11
         }
     }
-    /*
+    
     // Displays Text of the battery percentage 
+    /*
     Text {
         id: battTex
-        text: Math.round(Battery.percentage*100) + "%"
-        font.family: Appearance.mainfontfamily
-        font.pointSize: Appearance.mainfontsize
+        text: Math.round(Battery.percentage*100)
+        font.family: Appearance.mainFontFamily
+        font.pointSize: Appearance.mainFontSize
         Layout.alignment: Qt.AlignHCenter
         wrapMode: Text.Wrap
-        color: Appearance.maintext
+        color: Appearance.mainText
         renderType: Text.NativeRendering
         font.hintingPreference: Font.PreferFullHinting
     }*/
-    
 }
 

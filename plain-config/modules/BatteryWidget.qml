@@ -10,32 +10,22 @@ import qs.modules.components
 import qs.modules
 import qs.modules.svgicons
 
-/* Rectangle {
-    id: baserect
-    implicitHeight: 204
-    implicitWidth: 852
-    color: 'transparent'
-    Rectangle {
-        id: background
-        anchors.fill: parent
-        color: Appearance.maincolor
-        opacity: Appearance.mainopacity
-    }*/
+// TODO BatteryWidget: allow battery info configuration from other files
 RowLayout {
     id: row
     // anchors.right: parent
-    spacing: Appearance.mainfontsize * 2 // find a way to make this be based on screen size
+    spacing: Appearance.mainFontSize * 2 // find a way to make this be based on screen size
     implicitHeight: 100 // random height, must assign in bar
     implicitWidth: 100 // random width, must assign in bar
     // Displays Text of the battery percentage 
     Text {
         id:battTex
         text: Math.round(Battery.percentage*100) + "%"
-        font.family: Appearance.mainfontfamily
-        font.pointSize: Appearance.mainfontsize
+        font.family: Appearance.mainFontFamily
+        font.pointSize: Appearance.mainFontSize
         Layout.alignment: Qt.AlignVCenter
         wrapMode: Text.Wrap
-        color: Appearance.maintext
+        color: Appearance.mainText
         renderType: Text.NativeRendering
         font.hintingPreference: Font.PreferFullHinting
     }
@@ -44,13 +34,14 @@ RowLayout {
         // Battery icon creation file
         BatteryHorizontal {
             id: battIcon
-            implicitHeight: 5.5 * Appearance.mainfontsize / 2
+            implicitHeight: 5.5 * Appearance.mainFontSize / 2
             implicitWidth: height * 1.2
             anchors.centerIn: parent
+            
         }
         // Rectangle to act as charging bar
         Rectangle {
-            id: battbar
+            id: battBar
             implicitHeight: battIcon.height - battIcon.height/1.285
             // Battery.percentage * conversion for icon width to bar max width
             implicitWidth: (battIcon.width/1.8) * Battery.percentage
@@ -62,8 +53,8 @@ RowLayout {
                 leftMargin: battIcon.width / 5.6 
             }
             
-            color: Appearance.maintext
-            radius: Appearance.mainfontsize / 9
+            color: battIcon.shapefill
+            radius: Appearance.mainFontSize / 9
         }
     }
 }

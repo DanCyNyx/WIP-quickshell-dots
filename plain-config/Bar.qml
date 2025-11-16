@@ -19,7 +19,7 @@ Scope {
             id: panel
             screen: modelData
             implicitHeight: screen.height * (2.32/100) // 2.32% of the screens height is the bars reserved space
-            color: Appearance.mainpanel
+            color: Appearance.mainPanel
             // surfaceFormat {opaque:false}
             anchors {
                 top: true
@@ -27,16 +27,16 @@ Scope {
                 right: true
             }
             Rectangle {
-                id:barrect
+                id:barRect
                 anchors.fill: parent
-                // can round corners of rectangle but not PanelWindow
+                // Should round corners of rectangle but not PanelWindow
                 radius: 0
-                color: Appearance.maincolor
-                opacity: Appearance.mainopacity
+                color: Appearance.mainColor
+                opacity: Appearance.mainOpacity
                 // color: '#242313'
             }
             RowLayout {
-                id: leftrow
+                id: leftRow
                 anchors {
                     horizontalCenter: parent.horizontalCenter
                     verticalCenter: parent.verticalCenter
@@ -45,36 +45,37 @@ Scope {
                 }
                 opacity: Appearance.mainTextOpacity
                 implicitHeight: panel.height
-                implicitWidth: barrect.width/3
+                implicitWidth: barRect.width/3
                 uniformCellSizes: true
                 TempWorkspace {
                     // Layout vars to align widget
-                    Layout.maximumWidth: itemwidth*15
-                    Layout.topMargin:(leftrow.height - itemheight)/2
+                    // Listview item seems to not be centered so this margin fixes that issue
+                    Layout.topMargin:(leftRow.height - itemHeight)/2
                     Layout.leftMargin: 10
+                    Layout.maximumWidth: itemWidth*15
                     // Values supplied to TempWorkspace Widget
-                    // itemwidth: (Appearance.mainfontsize*1.15) // 1.95 with text
+                    // itemwidth: (Appearance.mainFontSize*1.15) // 1.95 with text
                     // itemheight: itemwidth
-                    rectrad: itemwidth * 0.5
+                    rectRad: itemWidth * 0.5
                 }
             }
             RowLayout {
-                id: timerow
+                id: middleRow
                 anchors.centerIn: parent
                 spacing: parent.width/250
                 opacity: Appearance.mainTextOpacity
-                implicitWidth: barrect.width/3
-                implicitHeight: barrect.height
+                implicitWidth: barRect.width/3
+                implicitHeight: barRect.height
                 uniformCellSizes: true
                 ClockWidget {
                     Layout.alignment: Qt.AlignVCenter
                     //timetext: Time.time
-                    timewidth: timerow.width
-                    // font.pointSize: Appearance.mainfontsize+2
+                    timeWidth: middleRow.width
+                    // font.pointSize: Appearance.mainFontSize+2
                 }
             }
             RowLayout {
-                id: rightrow
+                id: rightRow
                 anchors{
                     verticalCenter: parent.verticalCenter
                     right: parent.right
@@ -82,13 +83,13 @@ Scope {
                 }
                 uniformCellSizes: true
                 spacing: parent.width/250
-                implicitWidth: barrect.width/3
-                implicitHeight: barrect.height
+                implicitWidth: barRect.width/3
+                implicitHeight: barRect.height
                 opacity: Appearance.mainTextOpacity
                 BatteryWidget {
                     // spacing: screen.width / 70
                     // text: "; The battery is" + " " + Math.round(Battery.percentage*100) + "%"
-                    // font.pointSize: Appearance.mainfontsize+2
+                    // font.pointSize: Appearance.mainFontSize+2
                     implicitWidth: screen.width/10
                     implicitHeight: screen.height/10
                     Layout.alignment: Qt.AlignVCenter

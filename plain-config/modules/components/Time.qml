@@ -6,9 +6,9 @@ import Quickshell.Io
 // with this line our type becomes a Singleton
 pragma Singleton
 
-// your singletons should always have Singleton as the type
+// Singletons should always have Singleton as the type
 Singleton {
-    id: timesing
+    id: timeSing
     readonly property string time: {
         Qt.formatDateTime(clock.date,"hh:mm AP")
     }

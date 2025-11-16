@@ -8,7 +8,7 @@ pragma Singleton
 
 // your singletons should always have Singleton as the type
 Singleton {
-    id: timevert
+    id: timeVert
     readonly property string time: {
         Qt.formatDateTime(clock.date,"hh mm")
     }

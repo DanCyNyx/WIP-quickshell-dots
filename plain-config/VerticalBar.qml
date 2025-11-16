@@ -13,7 +13,7 @@ Scope {
     Variants {
         model: Quickshell.screens
         PanelWindow {
-            id: vertpanel
+            id: vertPanel
             required property var modelData
             screen: modelData
             // implicitHeight: 30
@@ -36,45 +36,40 @@ Scope {
                 opacity: Appearance.mainOpacity
             }
             ColumnLayout {
-                id: topcolumn
+                id: topColumn
                 anchors.top: parent.top
                 //anchors.horizontalCenter: panelRect.horizontalCenter
                 opacity: Appearance.mainTextOpacity
-                implicitWidth: vertpanel.width
-                implicitHeight: vertpanel.height/3
+                implicitWidth: vertPanel.width
+                implicitHeight: vertPanel.height/3
                 //uniformCellSizes: true
                 TempWorkspace {
                     // Values supplied to TempWorkspace Widget
-                    listorient: ListView.Vertical
-                    rectrad: itemwidth * 0.5
+                    listOrient: ListView.Vertical
+                    rectRad: itemWidth * 0.5
                     //itemheight: itemwidth // - 2 // 20 with text
                     //itemwidth: (Appearance.mainFontSize * 1.1)
                     // Layout vars to align Widget
-                    Layout.leftMargin: (vertpanel.width - itemwidth)/2
+                    // Listview items seem to not be centered so this margin fixes that issue
+                    Layout.leftMargin: (vertPanel.width - itemWidth)/2
                     Layout.topMargin: 10
-                    Layout.maximumHeight: itemheight*15
+                    Layout.maximumHeight: itemHeight*15
                     Layout.alignment: Qt.AlignTop
                 }
             }
             ColumnLayout {
-                id: middlecolumn
+                id: middleColumn
                 anchors.centerIn: parent
                 spacing: parent.height/250
                 opacity: Appearance.mainTextOpacity
                 uniformCellSizes: true
                 ClockWidget {
-                    // no more time binding
+                    // Tranformation if time.time is used instead of VertTime.time
                     // Set the rotation for vertical text
-                    /*transform: Rotation {
-                        angle: 45 // Rotate by 90 degrees for vertical text
-                        axis{x: 0; y: 0; z: 1}
-                        origin.x: width 
-                        origin.y: height
-                    } */
                     // transform: Rotation {origin.x: {column.width/2} origin.y: {column.height/2} angle: 270}
-                    timetext: VertTime.time
-                    datetext: VertTime.date
-                    fontsize: Appearance.mainFontSize + 1.5
+                    timeText: VertTime.time
+                    dateText: VertTime.date
+                    fontSize: Appearance.mainFontSize + 1.5
                     // Layout vars
                     Layout.minimumWidth: 16
                     Layout.maximumWidth: 30
@@ -82,7 +77,7 @@ Scope {
                 }
             }
             ColumnLayout {
-                id: bottomcolumn
+                id: bottomColumn
                 anchors {
                     horizontalCenter: parent.horizontalCenter
                     bottom: parent.bottom
@@ -96,7 +91,7 @@ Scope {
                     implicitWidth: screen.width/10
                     implicitHeight: screen.height/10
                     Layout.alignment: Qt.AlignHCenter
-                    Layout.bottomMargin: vertpanel.height/30
+                    Layout.bottomMargin: vertPanel.height/30
                 }
             }
         }
