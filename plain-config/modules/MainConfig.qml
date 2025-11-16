@@ -1,4 +1,4 @@
-// Imports color variables from componenets or specific wallpaper folders
+// Imports configuration choices from components or specific wallpaper folders and applies them to bars
 import QtQuick
 import Quickshell
 import Quickshell.Io
@@ -9,7 +9,7 @@ pragma Singleton
 */
 // TODO change the singleton values to qml objects
 Singleton {
-    // MainConfig of the bar based on specific appearance file
+    // MainConfig of the bar based on specific config file
     ////////////
     // Colors //
     ////////////

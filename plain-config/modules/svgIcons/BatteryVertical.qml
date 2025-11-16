@@ -11,7 +11,7 @@ Item {
     id: __qt_toplevel
 
     property AnimationsInfo animations
-    property color shapefill: Appearance.mainText
+    property color shapefill: MainConfig.mainText
     animations: AnimationsInfo {
     }
 

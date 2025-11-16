@@ -14,7 +14,7 @@ import qs.modules.svgIcons
 ColumnLayout {
     id: column
     // anchors.centerIn: parent
-    spacing: Appearance.mainFontSize * 2 // find a way to make this be based on screen size
+    spacing: MainConfig.mainFontSize * 2 // find a way to make this be based on screen size
     implicitHeight: 100 // random height, must assign in bar
     implicitWidth: 100 // random width, must assign in bar
     Item {
@@ -23,7 +23,7 @@ ColumnLayout {
         // Battery icon creation file
         BatteryVertical {
             id: battIcon
-            implicitWidth: 6 * Appearance.mainFontSize / 2
+            implicitWidth: 6 * MainConfig.mainFontSize / 2
             implicitHeight: width * 1.1
             anchors.centerIn: overseer
             
@@ -40,7 +40,7 @@ ColumnLayout {
             anchors.bottomMargin: battIcon.height / 5.5
             anchors.leftMargin: battIcon.width / 2.588
             color: battIcon.shapefill
-            radius: Appearance.mainFontSize / 11
+            radius: MainConfig.mainFontSize / 11
         }
     }
     
@@ -49,11 +49,11 @@ ColumnLayout {
     Text {
         id: battTex
         text: Math.round(Battery.percentage*100)
-        font.family: Appearance.mainFontFamily
-        font.pointSize: Appearance.mainFontSize
+        font.family: MainConfig.mainFontFamily
+        font.pointSize: MainConfig.mainFontSize
         Layout.alignment: Qt.AlignHCenter
         wrapMode: Text.Wrap
-        color: Appearance.mainText
+        color: MainConfig.mainText
         renderType: Text.NativeRendering
         font.hintingPreference: Font.PreferFullHinting
     }*/

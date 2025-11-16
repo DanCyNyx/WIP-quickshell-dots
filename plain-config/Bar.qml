@@ -19,7 +19,7 @@ Scope {
             id: panel
             screen: modelData
             implicitHeight: screen.height * (2.32/100) // 2.32% of the screens height is the bars reserved space
-            color: Appearance.mainPanel
+            color: MainConfig.mainPanel
             // surfaceFormat {opaque:false}
             anchors {
                 top: true
@@ -31,8 +31,8 @@ Scope {
                 anchors.fill: parent
                 // Should round corners of rectangle but not PanelWindow
                 radius: 0
-                color: Appearance.mainColor
-                opacity: Appearance.mainOpacity
+                color: MainConfig.mainColor
+                opacity: MainConfig.mainOpacity
                 // color: '#242313'
             }
             RowLayout {
@@ -43,7 +43,7 @@ Scope {
                     left: parent.left
                     // rightMargin: parent.width/70
                 }
-                opacity: Appearance.mainTextOpacity
+                opacity: MainConfig.mainTextOpacity
                 implicitHeight: panel.height
                 implicitWidth: barRect.width/3
                 uniformCellSizes: true
@@ -54,7 +54,7 @@ Scope {
                     Layout.leftMargin: 10
                     Layout.maximumWidth: itemWidth*15
                     // Values supplied to TempWorkspace Widget
-                    // itemwidth: (Appearance.mainFontSize*1.15) // 1.95 with text
+                    // itemwidth: (MainConfig.mainFontSize*1.15) // 1.95 with text
                     // itemheight: itemwidth
                     rectRad: itemWidth * 0.5
                 }
@@ -63,7 +63,7 @@ Scope {
                 id: middleRow
                 anchors.centerIn: parent
                 spacing: parent.width/250
-                opacity: Appearance.mainTextOpacity
+                opacity: MainConfig.mainTextOpacity
                 implicitWidth: barRect.width/3
                 implicitHeight: barRect.height
                 uniformCellSizes: true
@@ -71,7 +71,7 @@ Scope {
                     Layout.alignment: Qt.AlignVCenter
                     //timetext: Time.time
                     timeWidth: middleRow.width
-                    // font.pointSize: Appearance.mainFontSize+2
+                    // font.pointSize: MainConfig.mainFontSize+2
                 }
             }
             RowLayout {
@@ -85,11 +85,11 @@ Scope {
                 spacing: parent.width/250
                 implicitWidth: barRect.width/3
                 implicitHeight: barRect.height
-                opacity: Appearance.mainTextOpacity
+                opacity: MainConfig.mainTextOpacity
                 BatteryWidget {
                     // spacing: screen.width / 70
                     // text: "; The battery is" + " " + Math.round(Battery.percentage*100) + "%"
-                    // font.pointSize: Appearance.mainFontSize+2
+                    // font.pointSize: MainConfig.mainFontSize+2
                     implicitWidth: screen.width/10
                     implicitHeight: screen.height/10
                     Layout.alignment: Qt.AlignVCenter

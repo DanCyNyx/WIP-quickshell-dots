@@ -13,16 +13,16 @@ Item {
     property string timeText: Time.time
     property string dateText: Time.date
     property real timeWidth: 30
-    property real fontSize: Appearance.mainFontSize
+    property real fontSize: MainConfig.mainFontSize
     property bool help: true
     id: root
     RoundButton {
         anchors.centerIn: tex
         anchors.fill: tex.content
         // Layout.fillHeight: true
-        width: tex.contentWidth + Appearance.mainFontSize * 0.85
-        height: tex.contentHeight + Appearance.mainFontSize * 0.8
-        radius: Appearance.mainFontSize * 0.8
+        width: tex.contentWidth + MainConfig.mainFontSize * 0.85
+        height: tex.contentHeight + MainConfig.mainFontSize * 0.8
+        radius: MainConfig.mainFontSize * 0.8
         flat: true
         opacity: 0.25
         onClicked: {
@@ -41,11 +41,11 @@ Item {
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         text: timeText
-        font.family:Appearance.mainFontFamily
+        font.family:MainConfig.mainFontFamily
         font.pointSize: fontSize
         wrapMode: Text.Wrap
         width: timeWidth
-        color: Appearance.mainText
+        color: MainConfig.mainText
         renderType: Text.NativeRendering
         font.hintingPreference: Font.PreferFullHinting
     }

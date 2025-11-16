@@ -4,7 +4,6 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Widgets
 import QtQuick.Layouts
-import Quickshell.Services.UPower
 //pragma Singleton
 import qs.modules.components
 import qs.modules
@@ -14,18 +13,18 @@ import qs.modules.svgIcons
 RowLayout {
     id: row
     // anchors.right: parent
-    spacing: Appearance.mainFontSize * 2 // find a way to make this be based on screen size
+    spacing: MainConfig.mainFontSize * 2 // find a way to make this be based on screen size
     implicitHeight: 100 // random height, must assign in bar
     implicitWidth: 100 // random width, must assign in bar
     // Displays Text of the battery percentage 
     Text {
         id:battTex
         text: Math.round(Battery.percentage*100) + "%"
-        font.family: Appearance.mainFontFamily
-        font.pointSize: Appearance.mainFontSize
+        font.family: MainConfig.mainFontFamily
+        font.pointSize: MainConfig.mainFontSize
         Layout.alignment: Qt.AlignVCenter
         wrapMode: Text.Wrap
-        color: Appearance.mainText
+        color: MainConfig.mainText
         renderType: Text.NativeRendering
         font.hintingPreference: Font.PreferFullHinting
     }
@@ -34,7 +33,7 @@ RowLayout {
         // Battery icon creation file
         BatteryHorizontal {
             id: battIcon
-            implicitHeight: 5.5 * Appearance.mainFontSize / 2
+            implicitHeight: 5.5 * MainConfig.mainFontSize / 2
             implicitWidth: height * 1.2
             anchors.centerIn: parent
             
@@ -54,7 +53,7 @@ RowLayout {
             }
             
             color: battIcon.shapefill
-            radius: Appearance.mainFontSize / 9
+            radius: MainConfig.mainFontSize / 9
         }
     }
 }

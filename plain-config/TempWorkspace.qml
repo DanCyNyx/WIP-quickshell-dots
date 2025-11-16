@@ -11,7 +11,7 @@ import qs.modules.components
 // TODO workspace: can use alias instead of directly setting the itemWidth and height and listOrient
 Item {
     id: workroot
-    property real itemWidth: (Appearance.mainFontSize*1.2)
+    property real itemWidth: (MainConfig.mainFontSize*1.2)
     property real itemHeight: itemWidth
     property real rectRad: itemWidth/2
     property var listOrient: ListView.Horizontal
@@ -29,7 +29,7 @@ Item {
             required property var modelData
             property int ids: modelData.id
             property string actives: modelData.active
-            property string color1: Appearance.mainText
+            property string color1: MainConfig.mainText
             // property string rectcolor: "transparent"
             readonly property bool isurgent: modelData.urgent //&& HyprlandWorkspace.id == root.ids
             readonly property bool isworkspaceactive: Hyprland.focusedWorkspace.id == root.ids
@@ -42,7 +42,7 @@ Item {
             Rectangle {
                 id: textbg
                 anchors.fill: textmouse
-                color: isworkspaceactive? Appearance.mainText : isurgent?  Appearance.secondaryColor : Appearance.inactiveWorkspace // 
+                color: isworkspaceactive? MainConfig.mainText : isurgent?  MainConfig.secondaryColor : MainConfig.inactiveWorkspace // 
                 radius: rectRad
                 opacity:isworkspaceactive? 0.9 : isurgent? 0.7 : 1
                 // TODO Workspaces: add a blinking animation to urgent workspaces
@@ -57,10 +57,10 @@ Item {
                 }
                 onExited: {
                     textbgoverlay.color = "transparent";
-                    //texts.color = Qt.binding(function(){return !isworkspaceactive ? Appearance.mainText : Appearance.mainColor})
+                    //texts.color = Qt.binding(function(){return !isworkspaceactive ? MainConfig.mainText : MainConfig.mainColor})
                 }
                 onClicked: {
-                    if (Hyprland.focusedWorkspace.id != root.ids) Hyprdata.hyprdispatch(`workspace ${root.ids}`)
+                    if (Hyprland.focusedWorkspace.id != root.ids) HyprData.hyprDispatch(`workspace ${root.ids}`)
                     else return
                 }
                 
@@ -76,7 +76,7 @@ Item {
             /*
             Text {
                 id: texts
-                font.family: Appearance.mainFontFamily
+                font.family: MainConfig.mainFontFamily
                 anchors.centerIn: parent
                 // anchors.horizontalCenter: parent.horizontalCenter
                 verticalAlignment: Text.AlignVCenter
@@ -86,8 +86,8 @@ Item {
                 font.hintingPreference: Font.PreferFullHinting
                 text: root.ids
                 topPadding: itemHeight*0.13
-                font.pointSize: Appearance.mainFontSize
-                color: !isworkspaceactive ? Appearance.mainText : Appearance.mainColor
+                font.pointSize: MainConfig.mainFontSize
+                color: !isworkspaceactive ? MainConfig.mainText : MainConfig.mainColor
             }*/
         }
     }

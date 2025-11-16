@@ -18,7 +18,7 @@ Scope {
             screen: modelData
             // implicitHeight: 30
             implicitWidth: screen.width * (1.7/100) // 1.7% of the screens width is the vert bar
-            color: Appearance.mainPanel
+            color: MainConfig.mainPanel
             // surfaceFormat {opaque:false}
             //color: '#ebe5ac'
             anchors {
@@ -32,14 +32,14 @@ Scope {
                 id:panelRect
                 anchors.fill: parent
                 radius: 0
-                color: Appearance.mainColor
-                opacity: Appearance.mainOpacity
+                color: MainConfig.mainColor
+                opacity: MainConfig.mainOpacity
             }
             ColumnLayout {
                 id: topcolumn
                 anchors.top: parent.top
                 //anchors.horizontalCenter: panelRect.horizontalCenter
-                opacity: Appearance.mainTextOpacity
+                opacity: MainConfig.mainTextOpacity
                 implicitWidth: vertpanel.width
                 implicitHeight: vertpanel.height/3
                 //uniformCellSizes: true
@@ -48,7 +48,7 @@ Scope {
                     listorient: ListView.Vertical
                     rectrad: itemwidth * 0.5
                     //itemheight: itemwidth // - 2 // 20 with text
-                    //itemwidth: (Appearance.mainFontSize * 1.1)
+                    //itemwidth: (MainConfig.mainFontSize * 1.1)
                     // Layout vars to align Widget
                     Layout.leftMargin: (vertpanel.width - itemwidth)/2
                     Layout.topMargin: 10
@@ -60,7 +60,7 @@ Scope {
                 id: middlecolumn
                 anchors.centerIn: parent
                 spacing: parent.height/250
-                opacity: Appearance.mainTextOpacity
+                opacity: MainConfig.mainTextOpacity
                 uniformCellSizes: true
                 ClockWidget {
                     // no more time binding
@@ -74,7 +74,7 @@ Scope {
                     // transform: Rotation {origin.x: {column.width/2} origin.y: {column.height/2} angle: 270}
                     timetext: VertTime.time
                     datetext: VertTime.date
-                    fontsize: Appearance.mainFontSize + 1.5
+                    fontsize: MainConfig.mainFontSize + 1.5
                     // Layout vars
                     Layout.minimumWidth: 16
                     Layout.maximumWidth: 30
@@ -90,7 +90,7 @@ Scope {
                     // verticalCenter: parent.verticalCenter
                 }
                 spacing: parent.height/250
-                opacity: Appearance.mainTextOpacity
+                opacity: MainConfig.mainTextOpacity
                 uniformCellSizes: true
                 VertBatteryWidget{
                     implicitWidth: screen.width/10

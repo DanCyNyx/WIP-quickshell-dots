@@ -6,6 +6,7 @@ import QtQuick
 import QtQuick.Layouts
 import qs.modules
 import qs.modules.components
+import qs.modules.svgIcons
 
 
 Scope {
@@ -18,7 +19,7 @@ Scope {
             screen: modelData
             // implicitHeight: 30
             implicitWidth: screen.width * (1.7/100) // 1.7% of the screens width is the vert bar
-            color: Appearance.mainPanel
+            color: MainConfig.mainPanel
             // surfaceFormat {opaque:false}
             //color: '#ebe5ac'
             anchors {
@@ -32,14 +33,14 @@ Scope {
                 id:panelRect
                 anchors.fill: parent
                 radius: 0
-                color: Appearance.mainColor
-                opacity: Appearance.mainOpacity
+                color: MainConfig.mainColor
+                opacity: MainConfig.mainOpacity
             }
             ColumnLayout {
                 id: topColumn
                 anchors.top: parent.top
                 //anchors.horizontalCenter: panelRect.horizontalCenter
-                opacity: Appearance.mainTextOpacity
+                opacity: MainConfig.mainTextOpacity
                 implicitWidth: vertPanel.width
                 implicitHeight: vertPanel.height/3
                 //uniformCellSizes: true
@@ -48,12 +49,12 @@ Scope {
                     listOrient: ListView.Vertical
                     rectRad: itemWidth * 0.5
                     //itemheight: itemwidth // - 2 // 20 with text
-                    //itemwidth: (Appearance.mainFontSize * 1.1)
+                    //itemwidth: (MainConfig.mainFontSize * 1.1)
                     // Layout vars to align Widget
                     // Listview items seem to not be centered so this margin fixes that issue
                     Layout.leftMargin: (vertPanel.width - itemWidth)/2
                     Layout.topMargin: 10
-                    Layout.maximumHeight: itemHeight*15
+                    Layout.maximumHeight: itemHeight * 15
                     Layout.alignment: Qt.AlignTop
                 }
             }
@@ -61,7 +62,7 @@ Scope {
                 id: middleColumn
                 anchors.centerIn: parent
                 spacing: parent.height/250
-                opacity: Appearance.mainTextOpacity
+                opacity: MainConfig.mainTextOpacity
                 uniformCellSizes: true
                 ClockWidget {
                     // Tranformation if time.time is used instead of VertTime.time
@@ -69,7 +70,7 @@ Scope {
                     // transform: Rotation {origin.x: {column.width/2} origin.y: {column.height/2} angle: 270}
                     timeText: VertTime.time
                     dateText: VertTime.date
-                    fontSize: Appearance.mainFontSize + 1.5
+                    fontSize: MainConfig.mainFontSize + 1.5
                     // Layout vars
                     Layout.minimumWidth: 16
                     Layout.maximumWidth: 30
@@ -85,7 +86,7 @@ Scope {
                     // verticalCenter: parent.verticalCenter
                 }
                 spacing: parent.height/250
-                opacity: Appearance.mainTextOpacity
+                opacity: MainConfig.mainTextOpacity
                 uniformCellSizes: true
                 VertBatteryWidget{
                     implicitWidth: screen.width/10

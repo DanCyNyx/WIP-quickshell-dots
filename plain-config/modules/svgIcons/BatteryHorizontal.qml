@@ -10,7 +10,7 @@ import qs.modules.components
 Item {
     id: _qt_node0
     property AnimationsInfo animations
-    property color shapefill: Appearance.mainText
+    property color shapefill: MainConfig.mainText
     animations: AnimationsInfo {
     }
     implicitWidth: 960

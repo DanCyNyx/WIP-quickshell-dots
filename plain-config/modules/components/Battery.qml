@@ -46,7 +46,7 @@ Singleton {
             "-a", "Shell",
             "--hint=int:transient:1",
         ])
-        if (root.soundEnabled) Appearance.playSystemSound("dialog-warning");
+        if (root.soundEnabled) MainConfig.playSystemSound("dialog-warning");
     }
 
     onCritAndNotChargingChanged: {
@@ -60,7 +60,7 @@ Singleton {
             "--hint=int:transient:1",
         ])
         suspendTimer.running = true
-        if (root.soundEnabled) Appearance.playSystemSound("suspend-error");
+        if (root.soundEnabled) MainConfig.playSystemSound("suspend-error");
     }
     onFullAndChargingChanged: {
         if (!root.available || !fullAndCharging) return;
@@ -71,15 +71,15 @@ Singleton {
             "-a", "Shell",
             "--hint=int:transient:1",
         ]);
-        if (root.soundEnabled) Appearance.playSystemSound("complete");
+        if (root.soundEnabled) MainConfig.playSystemSound("complete");
     }
     
     onIsPluggedInChanged: {
         if (!root.available || !root.soundEnabled) return;
         if (isPluggedIn) {
-            Appearance.playSystemSound("power-plug")
+            MainConfig.playSystemSound("power-plug")
         } else {
-            Appearance.playSystemSound("power-unplug")
+            MainConfig.playSystemSound("power-unplug")
         }
     }
     // Process and timer to suspend after suspendTime seconds if batt critical and not charging
