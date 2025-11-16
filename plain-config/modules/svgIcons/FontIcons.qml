@@ -13,7 +13,7 @@ Singleton {
     property QtObject network
     property QtObject mpris
     // List all the icons for each category here!
-    // All original icons gotten from nerd-fonts page
+    // All icons were gotten from the nerd-fonts page
     // Volume icons
     volume: QtObject {
         property string headphones: " "
