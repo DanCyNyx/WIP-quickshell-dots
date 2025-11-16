@@ -8,7 +8,7 @@ import Quickshell.Services.UPower
 //pragma Singleton
 import qs.modules.components
 import qs.modules
-import qs.modules.svgicons
+import qs.modules.svgIcons
 
 // TODO BatteryWidget: allow battery info configuration from other files
 RowLayout {
