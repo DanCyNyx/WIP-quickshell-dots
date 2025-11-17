@@ -4,7 +4,6 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 pragma Singleton
-// TODO change the different parts to qml objects
 Singleton {
     property QtObject colors
     property QtObject audio
