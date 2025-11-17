@@ -14,39 +14,31 @@ Item {
     property string dateText: Time.date
     property real timeWidth: 30
     property real fontSize: MainConfig.mainFontSize
-    property bool help: true
+    property string fontFamily: MainConfig.mainFontFamily
+    property bool initialBool: true
     id: root
     RoundButton {
         anchors.centerIn: tex
         anchors.fill: tex.content
-        // Layout.fillHeight: true
         width: tex.contentWidth + MainConfig.mainFontSize * 0.85
         height: tex.contentHeight + MainConfig.mainFontSize * 0.8
-        radius: MainConfig.mainFontSize * 0.8
+        radius: width/2
         flat: true
         opacity: 0.25
         onClicked: {
-            tex.text = help ? Qt.binding(function(){return dateText}) : Qt.binding(function(){return timeText})
-            help = !help
-            // if (tex.text == timeText)
-            //     tex.text = Qt.binding(function(){return dateText})
-            // else
-            //     tex.text = tex.text = Qt.binding(function(){return timeText})
+            tex.textIn = initialBool ? Qt.binding(function(){return dateText}) : Qt.binding(function(){return timeText})
+            initialBool = !initialBool
         }
     }
-    Text {
+    StyledText {
         id: tex
         //anchors.horizontalCenter: parent.horizontalCenter
         anchors.centerIn: parent
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
-        text: timeText
-        font.family:MainConfig.mainFontFamily
-        font.pointSize: fontSize
-        wrapMode: Text.Wrap
+        textIn: timeText
+        styledFontFamily: fontFamily
+        styledFontSize: fontSize
         width: timeWidth
-        color: MainConfig.mainText
-        renderType: Text.NativeRendering
-        font.hintingPreference: Font.PreferFullHinting
     }
 }

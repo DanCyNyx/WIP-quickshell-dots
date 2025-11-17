@@ -6,7 +6,7 @@ import QtQuick
 import QtQuick.Layouts
 import qs.modules
 import qs.modules.components
-import qs.modules.svgIcons
+import qs.modules.icons
 
 
 Scope {
@@ -71,6 +71,7 @@ Scope {
                     timeText: VertTime.time
                     dateText: VertTime.date
                     fontSize: MainConfig.mainFontSize + 1.5
+                    // fontFamily:FontIcons.iconFontFamily
                     // Layout vars
                     Layout.minimumWidth: 16
                     Layout.maximumWidth: 30

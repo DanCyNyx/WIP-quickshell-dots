@@ -7,7 +7,7 @@ import QtQuick.Layouts
 //pragma Singleton
 import qs.modules.components
 import qs.modules
-import qs.modules.svgIcons
+import qs.modules.icons
 
 // TODO BatteryWidget: allow battery info configuration from other files
 RowLayout {
@@ -17,16 +17,10 @@ RowLayout {
     implicitHeight: 100 // random height, must assign in bar
     implicitWidth: 100 // random width, must assign in bar
     // Displays Text of the battery percentage 
-    Text {
-        id:battTex
-        text: Math.round(Battery.percentage*100) + "%"
-        font.family: MainConfig.mainFontFamily
-        font.pointSize: MainConfig.mainFontSize
+    StyledText {
+        id:battText
+        textIn: Math.round(Battery.percentage*100) + "%"
         Layout.alignment: Qt.AlignVCenter
-        wrapMode: Text.Wrap
-        color: MainConfig.mainText
-        renderType: Text.NativeRendering
-        font.hintingPreference: Font.PreferFullHinting
     }
     Item {
         Layout.alignment: Qt.AlignVCenter

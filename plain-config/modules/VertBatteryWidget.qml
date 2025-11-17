@@ -8,7 +8,7 @@ import Quickshell.Services.UPower
 // pragma Singleton
 import qs.modules.components
 import qs.modules
-import qs.modules.svgIcons
+import qs.modules.icons
 
 // TODO VertBatteryWidget: allow battery info configuration from other files
 ColumnLayout {
@@ -47,7 +47,7 @@ ColumnLayout {
     // Displays Text of the battery percentage 
     /*
     Text {
-        id: battTex
+        id: battText
         text: Math.round(Battery.percentage*100)
         font.family: MainConfig.mainFontFamily
         font.pointSize: MainConfig.mainFontSize

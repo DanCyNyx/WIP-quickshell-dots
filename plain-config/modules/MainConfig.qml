@@ -13,18 +13,17 @@ Singleton {
     ////////////
     // Colors //
     ////////////
-    property color mainColor: BaseConfig.basec
-    property color secondaryColor: BaseConfig.baseSecondC
-    property color mainText: BaseConfig.baseText
-    property color mainPanel: BaseConfig.basePanel
-    property color mainOutline: BaseConfig.baseOutline
-    property color inactiveWorkspace: BaseConfig.baseWorkspace
-    
+    property color mainColor: BaseConfig.colors.primary
+    property color secondaryColor: BaseConfig.colors.secondary
+    property color mainText: BaseConfig.colors.textcolor
+    property color mainPanel: BaseConfig.colors.panel
+    property color mainOutline: BaseConfig.colors.outline
+    property color inactiveWorkspace: BaseConfig.colors.workspace
     ///////////
     // Fonts //
     ///////////
-    property real mainFontSize: BaseConfig.baseFontSize
-    property string mainFontFamily: BaseConfig.baseFontFamily
+    property real mainFontSize: BaseConfig.text.fontSize
+    property string mainFontFamily: BaseConfig.text.fontFamily
     //////////////////////
     // Folder for theme //
     //////////////////////
@@ -32,10 +31,12 @@ Singleton {
     /////////////
     // Opacity //
     /////////////
-    property real mainOpacity: BaseConfig.baseOpacity
-    property real mainTextOpacity: BaseConfig.baseTextOpacity
-    
+    property real mainOpacity: BaseConfig.opacity.mainOpacity
+    property real mainTextOpacity: BaseConfig.opacity.textOpacity
+    ///////////
+    // Audio //
+    ///////////
     function playSystemSound(soundName) {
-        BaseConfig.playSystemSound(soundName)
+        BaseConfig.audio.playSystemSound(soundName)
     }
 }

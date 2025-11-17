@@ -12,34 +12,35 @@ Singleton {
     property QtObject brightness
     property QtObject network
     property QtObject mpris
+    property string iconFontFamily:"OpenDyslexic Nerd Font" // "JetBrainsMono Nerd Font Mono"
     // List all the icons for each category here!
     // All icons were gotten from the nerd-fonts page
     // Volume icons
     volume: QtObject {
-        property string headphones: " "
-        property string headphonesMuted: "󰟎 "
+        property string headphones: ""
+        property string headphonesMuted: "󰟎"
         // property string handsFree
         // property string headset
-        property string phone: " "
-        property string car: " "
+        property string phone: ""
+        property string car: ""
         property string microphone: ""
-        property string microphoneMuted: "  "
+        property string microphoneMuted: ""
         property string bluetooth: ""
         property string bluetoothMuted: "󰂲"
         property QtObject speaker
         speaker: QtObject {
             property string low: ""
             property string medium: ""
-            property string high: " "
-            property string muted: " "
+            property string high: ""
+            property string muted: ""
         }
     }
     // CPU, GPU and RAM icons
     performance: QtObject {
-        property string cpu:" " // online: "64:󰻠,generic:", fastfetch:"", waybar:""
-        property string gpu:"󰢮 " // online: "󰢮", fastfetch: "󰾲"
-        // TODO Ram looks weird for some reason. fix that
-        property string ram:"󰘚" // online: "", fastfetch: "", waybar: ""
+        property string cpu:"" // online: "64:󰻠,generic:", fastfetch:"", waybar:""
+        property string gpu:"󰢮" // online: "󰢮", fastfetch: "󰾲"
+        // TODO Ram  looks weird for some reason. fix that
+        property string ram:"" // online: "", fastfetch: "", waybar: ""
         property string temps: "󰔏"
         property string tempsHigh: "󰸁"
     }
