@@ -32,7 +32,7 @@ Singleton {
             property string low: ""
             property string medium: ""
             property string high: ""
-            property string muted: " "
+            property string muted: ""
         }
     }
     // CPU, GPU and RAM icons

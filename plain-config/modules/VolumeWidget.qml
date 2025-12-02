@@ -20,13 +20,13 @@ Item {
     }
     // Function and connections for speaker audio
     function volumeCheck() {
-        if (sinkAudio?.volume <= 30/100 && !sinkAudio?.muted && sinkAudio?.volume !== 0) {
-            volumeText.textIn = FontIcons.volume.speaker.low + " ";
-        } else if (sinkAudio?.volume >= 30/100 && sinkAudio?.volume <= 60/100 && !sinkAudio?.muted) {
-            volumeText.textIn = FontIcons.volume.speaker.medium + " ";
-        } else if (sinkAudio?.volume >= 60/100 && !sinkAudio?.muted) {
-            volumeText.textIn = FontIcons.volume.speaker.high + " ";
-        } else if (sinkAudio?.volume == 0 || sinkAudio.muted) {
+        if (sinkAudio?.volume <= 30/100 && sinkAudio?.volume !== 0 && !Audio.sinkMuted) {
+            volumeText.textIn = FontIcons.volume.speaker.low;
+        } else if (sinkAudio?.volume >= 30/100 && sinkAudio?.volume <= 60/100 && !Audio.sinkMuted) {
+            volumeText.textIn = FontIcons.volume.speaker.medium;
+        } else if (sinkAudio?.volume >= 60/100 && !Audio.sinkMuted) {
+            volumeText.textIn = FontIcons.volume.speaker.high;
+        } else if (sinkAudio?.volume == 0 || Audio.sinkMuted) {
             volumeText.textIn = FontIcons.volume.speaker.muted;
         }
     }
@@ -36,16 +36,14 @@ Item {
             volumeCheck()
         }
         function onMutedChanged() {
-            if (sinkAudio.muted) {
-                volumeText.textIn = FontIcons.volume.speaker.muted;
-            } else {volumeCheck()}
+            volumeCheck()
         }
     }
     // Functions and connections for microphone audio
     function micCheck() {
-        if (sourceAudio?.volume == 0 || sourceAudio.muted) {
+        if (sourceAudio?.volume == 0 || Audio.sourceMuted) {
             micText.textIn = FontIcons.volume.microphoneMuted;
-        } else if (sourceAudio?.volume !== 0 && !sourceAudio.muted ) {micText.textIn = FontIcons.volume.microphone}
+        } else if (sourceAudio?.volume !== 0 && !Audio.sourceMuted ) {micText.textIn = FontIcons.volume.microphone}
     }
     Connections {
         target: sourceAudio ?? null
@@ -53,9 +51,7 @@ Item {
             micCheck()
         }
         function onMutedChanged() {
-            if (sourceAudio.muted) {
-                micText.textIn = FontIcons.volume.microphoneMuted;
-            } else {micCheck()}
+            micCheck()
         }
     }
     // Reload the icons on startup and whenever widget is run
@@ -68,7 +64,7 @@ Item {
     StyledText {
         id: volumeText
         styledFontFamily: FontIcons.iconFontFamily
-        textIn: "Audio N/A"
+        textIn: "Audio out N/A"
         anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
     }
@@ -77,7 +73,7 @@ Item {
         styledFontFamily: FontIcons.iconFontFamily
         textIn: "Mic N/A"
         anchors.left: volumeText.right
-        anchors.leftMargin: MainConfig.mainFontSize*0.4
+        anchors.leftMargin: MainConfig.mainFontSize*0.7
         anchors.verticalCenter: parent.verticalCenter
     }
     // PopupWindow {

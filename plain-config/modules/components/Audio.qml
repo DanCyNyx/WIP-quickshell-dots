@@ -6,7 +6,7 @@ import Quickshell.Services.Pipewire
 import qs.modules
 import qs.modules.icons
 pragma Singleton
-// code mostly from end-4's illogical impulse dotfiles
+// code mostly from end-4's illogical impulse and soramane's caelestia-dots github repositories
 Singleton {
     id: root
     property string previousSinkName: ""
