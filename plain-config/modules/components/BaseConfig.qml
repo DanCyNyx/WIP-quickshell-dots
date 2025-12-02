@@ -11,7 +11,7 @@ Singleton {
     property QtObject opacity
     // All colors
     colors: QtObject {
-        // Color of the bar. Default: '#ebe5ac', '#1c1919'
+        // Primary colors (color of bar). Default: '#ebe5ac', '#1c1919'
         property string primary: '#ebe5ac'
         // Secondary Color of components. Default: '#417bd9'
         property string secondary: '#f3a245'
