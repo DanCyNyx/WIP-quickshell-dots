@@ -9,31 +9,41 @@ pragma Singleton
 */
 // TODO change the singleton values to qml objects
 Singleton {
+    //////////////////////
+    // Folder for theme //
+    //////////////////////
+    property string filename: 'BaseConfig'
+    // Qt objects containing all the file configuration options
+    property QtObject colors
+    property QtObject text
+    property QtObject opacity
     property QtObject audio
     // MainConfig of the bar based on specific config file
     ////////////
     // Colors //
     ////////////
-    property color mainColor: BaseConfig.colors.primary
-    property color secondaryColor: BaseConfig.colors.secondary
-    property color mainText: BaseConfig.colors.textcolor
-    property color mainPanel: BaseConfig.colors.panel
-    property color mainOutline: BaseConfig.colors.outline
-    property color inactiveWorkspace: BaseConfig.colors.workspace
-    ///////////
-    // Fonts //
-    ///////////
-    property real mainFontSize: BaseConfig.text.fontSize
-    property string mainFontFamily: BaseConfig.text.fontFamily
-    //////////////////////
-    // Folder for theme //
-    //////////////////////
-    property string filename: 'BaseConfig'
+    colors: QtObject {
+        property color main: BaseConfig.colors.primary
+        property color secondary: BaseConfig.colors.secondary
+        property color text: BaseConfig.colors.textcolor
+        property color panel: BaseConfig.colors.panel
+        property color outline: BaseConfig.colors.outline
+        property color inactiveWorkspace: BaseConfig.colors.workspace
+    }
+    //////////
+    // Text //
+    //////////
+    text: QtObject {
+        property real fontSize: BaseConfig.text.fontSize
+        property string fontFamily: BaseConfig.text.fontFamily
+    }
     /////////////
     // Opacity //
     /////////////
-    property real mainOpacity: BaseConfig.opacity.mainOpacity
-    property real mainTextOpacity: BaseConfig.opacity.textOpacity
+    opacity: QtObject {
+        property real main: BaseConfig.opacity.mainOpacity
+        property real text: BaseConfig.opacity.textOpacity
+    }
     ///////////
     // Audio //
     ///////////
@@ -41,8 +51,8 @@ Singleton {
         property bool protectionEnabled: true
         property real maxAllowedIncrease: 10
         property real maxAllowed: 100
-    }
-    function playSystemSound(soundName) {
-        BaseConfig.audio.playSystemSound(soundName)
+        function playSystemSound(soundName) {
+            BaseConfig.audio.playSystemSound(soundName)
+        }
     }
 }

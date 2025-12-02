@@ -24,7 +24,7 @@ Scope {
             exclusionMode: ExclusionMode.Auto
             // implicitHeight: 30
             implicitWidth: screen.width * (1.7/100) // 1.7% of the screens width is the vert bar
-            color: MainConfig.mainPanel
+            color: MainConfig.colors.panel
             // surfaceFormat {opaque:false}
             //color: '#ebe5ac'
             anchors {
@@ -38,14 +38,14 @@ Scope {
                 id:panelRect
                 anchors.fill: parent
                 radius: 0 // width/2
-                color: MainConfig.mainColor
-                opacity: MainConfig.mainOpacity
+                color: MainConfig.colors.main
+                opacity: MainConfig.opacity.main
             }
             ColumnLayout {
                 id: topColumn
                 anchors.top: parent.top
                 //anchors.horizontalCenter: panelRect.horizontalCenter
-                opacity: MainConfig.mainTextOpacity
+                opacity: MainConfig.opacity.text
                 implicitWidth: vertPanel.width
                 implicitHeight: vertPanel.height/3
                 //uniformCellSizes: true
@@ -54,7 +54,7 @@ Scope {
                     listOrient: ListView.Vertical
                     rectRad: itemWidth * 0.5
                     //itemheight: itemwidth // - 2 // 20 with text
-                    //itemwidth: (MainConfig.mainFontSize * 1.1)
+                    //itemwidth: (MainConfig.text.fontSize * 1.1)
                     // Layout vars to align Widget
                     // Listview items seem to not be centered so this margin fixes that issue
                     Layout.leftMargin: (vertPanel.width - itemWidth)/2
@@ -67,16 +67,15 @@ Scope {
                 id: middleColumn
                 anchors.centerIn: parent
                 spacing: parent.height/250
-                opacity: MainConfig.mainTextOpacity
+                opacity: MainConfig.opacity.text
                 uniformCellSizes: true
                 ClockWidget {
-                    // Tranformation if time.time is used instead of VertTime.time
-                    // Set the rotation for vertical text
-                    // transform: Rotation {origin.x: {column.width/2} origin.y: {column.height/2} angle: 270}
+                    // Tranformation if Time.time is used instead of VertTime.time
+                    // /transform: Rotation {origin.x: {middleColumn.width/2} origin.y: {middleColumn.height/2} angle: 270}
                     timeText: VertTime.time
-                    clockText.width: panelRect.width - 6
                     dateText: VertTime.date
-                    fontSize: MainConfig.mainFontSize + 1.5
+                    clockText.width: panelRect.width - 6
+                    clockText.fontSize: MainConfig.text.fontSize + 1.5
                     // fontFamily:FontIcons.iconFontFamily
                     // Layout vars
                     Layout.minimumWidth: 16
@@ -93,7 +92,7 @@ Scope {
                     // verticalCenter: parent.verticalCenter
                 }
                 spacing: parent.height/250
-                opacity: MainConfig.mainTextOpacity
+                opacity: MainConfig.opacity.text
                 uniformCellSizes: true
                 VertBatteryWidget{
                     implicitWidth: screen.width/10

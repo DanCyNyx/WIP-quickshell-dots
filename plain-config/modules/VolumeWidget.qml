@@ -63,17 +63,17 @@ Item {
     // The actual icons
     StyledText {
         id: volumeText
-        styledFontFamily: FontIcons.iconFontFamily
+        fontFamily: FontIcons.iconFontFamily
         textIn: "Audio out N/A"
         anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
     }
     StyledText {
         id: micText
-        styledFontFamily: FontIcons.iconFontFamily
+        fontFamily: FontIcons.iconFontFamily
         textIn: "Mic N/A"
         anchors.left: volumeText.right
-        anchors.leftMargin: MainConfig.mainFontSize*0.7
+        anchors.leftMargin: MainConfig.text.fontSize*0.7
         anchors.verticalCenter: parent.verticalCenter
     }
     // PopupWindow {
@@ -86,8 +86,8 @@ Item {
     //     Rectangle {
     //         anchors.fill: parent
     //         radius: width/10
-    //         color: MainConfig.mainColor
-    //         opacity: MainConfig.mainOpacity
+    //         color: MainConfig.colors.main
+    //         opacity: MainConfig.opacity.main
     //     }
     // }
 }

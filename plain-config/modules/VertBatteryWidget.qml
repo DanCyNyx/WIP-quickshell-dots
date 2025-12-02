@@ -13,7 +13,7 @@ import qs.modules.icons
 ColumnLayout {
     id: column
     // anchors.centerIn: parent
-    spacing: MainConfig.mainFontSize * 2 // find a way to make this be based on screen size
+    spacing: MainConfig.text.fontSize * 2 // find a way to make this be based on screen size
     implicitHeight: 100 // random height, must assign in bar
     implicitWidth: 100 // random width, must assign in bar
     Item {
@@ -22,7 +22,7 @@ ColumnLayout {
         // Battery icon creation file
         BatteryVertical {
             id: battIcon
-            implicitWidth: 6 * MainConfig.mainFontSize / 2
+            implicitWidth: 6 * MainConfig.text.fontSize / 2
             implicitHeight: width * 1.1
             anchors.centerIn: overseer
             
@@ -39,7 +39,7 @@ ColumnLayout {
             anchors.bottomMargin: battIcon.height / 5.5
             anchors.leftMargin: battIcon.width / 2.588
             color: battIcon.shapefill
-            radius: MainConfig.mainFontSize / 11
+            radius: MainConfig.text.fontSize / 11
         }
     }
     

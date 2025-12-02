@@ -11,7 +11,7 @@ import qs.modules.components
 // TODO workspace: can use alias instead of directly setting the itemWidth and height and listOrient
 Item {
     id: workroot
-    property real itemWidth: (MainConfig.mainFontSize*1.2)
+    property real itemWidth: (MainConfig.text.fontSize*1.2)
     property real itemHeight: itemWidth
     property real rectRad: itemWidth/2
     property var listOrient: ListView.Horizontal
@@ -29,7 +29,7 @@ Item {
             required property var modelData
             property int ids: modelData.id
             property string actives: modelData.active
-            property string color1: MainConfig.mainText
+            property string color1: MainConfig.colors.text
             // property string rectcolor: "transparent"
             readonly property bool isurgent: modelData.urgent //&& HyprlandWorkspace.id == root.ids
             readonly property bool isworkspaceactive: Hyprland.focusedWorkspace.id == root.ids
@@ -42,7 +42,7 @@ Item {
             Rectangle {
                 id: textbg
                 anchors.fill: textmouse
-                color: isworkspaceactive? MainConfig.mainText : isurgent?  MainConfig.secondaryColor : MainConfig.inactiveWorkspace // 
+                color: isworkspaceactive? MainConfig.colors.text : isurgent?  MainConfig.colors.secondary : MainConfig.colors.inactiveWorkspace // 
                 radius: rectRad
                 opacity:isworkspaceactive? 0.9 : isurgent? 0.7 : 1
                 // TODO Workspaces: add a blinking animation to urgent workspaces

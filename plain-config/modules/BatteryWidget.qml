@@ -27,9 +27,9 @@ Item {
         anchors {
             left: battText.right
             verticalCenter: parent.verticalCenter
-            leftMargin: MainConfig.mainFontSize/5
+            leftMargin: MainConfig.text.fontSize/5
         }
-        implicitHeight: 5.5 * MainConfig.mainFontSize / 2
+        implicitHeight: 5.5 * MainConfig.text.fontSize / 2
         implicitWidth: height * 1.2
         // Battery icon creation file
         BatteryHorizontal {
@@ -50,7 +50,7 @@ Item {
                 leftMargin: battIcon.width / 5.6 
             }
             color: battIcon.shapefill
-            radius: MainConfig.mainFontSize / 9
+            radius: MainConfig.text.fontSize / 9
         }
     }
 }

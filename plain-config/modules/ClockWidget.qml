@@ -12,16 +12,13 @@ Item {
     // Allows for button, text and font size configuration from other files
     property string timeText: Time.time
     property string dateText: Time.date
-    property real fontSize: MainConfig.mainFontSize
-    property string fontFamily: MainConfig.mainFontFamily
     property bool initialBool: true
     property alias clockText: tex
     id: root
     RoundButton {
         anchors.centerIn: tex
-        anchors.fill: tex.content
-        width: tex.contentWidth + MainConfig.mainFontSize * 0.85
-        height: tex.contentHeight + MainConfig.mainFontSize * 0.8
+        width: tex.contentWidth + MainConfig.text.fontSize * 0.85
+        height: tex.contentHeight + MainConfig.text.fontSize * 0.8
         radius: width/2
         flat: true
         opacity: 0.25
@@ -37,7 +34,7 @@ Item {
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         textIn: timeText
-        styledFontFamily: fontFamily
-        styledFontSize: fontSize
+        fontFamily: MainConfig.text.fontFamily
+        fontSize: MainConfig.text.fontSize
     }
 }
