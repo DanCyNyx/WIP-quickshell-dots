@@ -7,7 +7,6 @@ import QtQuick.Layouts
 import Quickshell.Services.UPower
 // pragma Singleton
 import qs.modules.components
-import qs.modules
 import qs.modules.icons
 
 // TODO VertBatteryWidget: allow battery info configuration from other files
@@ -46,16 +45,10 @@ ColumnLayout {
     
     // Displays Text of the battery percentage 
     /*
-    Text {
+    StyledText {
         id: battText
         text: Math.round(Battery.percentage*100)
-        font.family: MainConfig.mainFontFamily
-        font.pointSize: MainConfig.mainFontSize
         Layout.alignment: Qt.AlignHCenter
-        wrapMode: Text.Wrap
-        color: MainConfig.mainText
-        renderType: Text.NativeRendering
-        font.hintingPreference: Font.PreferFullHinting
     }*/
 }
 

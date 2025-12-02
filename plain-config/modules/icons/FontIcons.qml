@@ -32,14 +32,13 @@ Singleton {
             property string low: ""
             property string medium: ""
             property string high: ""
-            property string muted: ""
+            property string muted: " "
         }
     }
     // CPU, GPU and RAM icons
     performance: QtObject {
         property string cpu:"" // online: "64:󰻠,generic:", fastfetch:"", waybar:""
         property string gpu:"󰢮" // online: "󰢮", fastfetch: "󰾲"
-        // TODO Ram  looks weird for some reason. fix that
         property string ram:"" // online: "", fastfetch: "", waybar: ""
         property string temps: "󰔏"
         property string tempsHigh: "󰸁"

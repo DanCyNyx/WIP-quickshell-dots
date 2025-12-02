@@ -9,6 +9,7 @@ pragma Singleton
 */
 // TODO change the singleton values to qml objects
 Singleton {
+    property QtObject audio
     // MainConfig of the bar based on specific config file
     ////////////
     // Colors //
@@ -36,6 +37,11 @@ Singleton {
     ///////////
     // Audio //
     ///////////
+    audio: QtObject {
+        property bool protectionEnabled: true
+        property real maxAllowedIncrease: 10
+        property real maxAllowed: 100
+    }
     function playSystemSound(soundName) {
         BaseConfig.audio.playSystemSound(soundName)
     }

@@ -13,10 +13,10 @@ Singleton {
     colors: QtObject {
         // Color of the bar. Default: '#ebe5ac', '#1c1919'
         property string primary: '#ebe5ac'
-        // Secondary Color of components. Default: '#912c2c'
-        property string secondary: '#417bd9'
-        // Color of the text. Default: '#67323b','#a92037','#ebe5ac'
-        property string textcolor: '#822b3a'
+        // Secondary Color of components. Default: '#417bd9'
+        property string secondary: '#f3a245'
+        // Color of the text. Default: '#822b3a','#a92037','#ebe5ac'
+        property string textcolor: '#9c2136'
         // Color of the background panel. Default: 'transparent'
         property string panel: 'transparent'
         // Color of the outlines of specific componenets. Default: '#201f1c'
@@ -27,7 +27,7 @@ Singleton {
     // Text options configuration
     text: QtObject {
         // Fontsize of text. Default: 10 + 0.25
-        property real fontSize: (10 + 0.25)
+        property real fontSize: (10+0.25)
         property string fontFamily: "fleshandblood" // default "Fleshandblood"/"URW Bookman"
     }
     // Opacity options

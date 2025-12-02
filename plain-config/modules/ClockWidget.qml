@@ -12,10 +12,10 @@ Item {
     // Allows for button, text and font size configuration from other files
     property string timeText: Time.time
     property string dateText: Time.date
-    property real timeWidth: 30
     property real fontSize: MainConfig.mainFontSize
     property string fontFamily: MainConfig.mainFontFamily
     property bool initialBool: true
+    property alias clockText: tex
     id: root
     RoundButton {
         anchors.centerIn: tex
@@ -39,6 +39,5 @@ Item {
         textIn: timeText
         styledFontFamily: fontFamily
         styledFontSize: fontSize
-        width: timeWidth
     }
 }

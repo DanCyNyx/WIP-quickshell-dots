@@ -1,9 +1,12 @@
 // Vertical_Bar.qml
 // File for all the layout and coloring parts of the bar
 
-import Quickshell
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
+import Quickshell
+import Quickshell.Io
+import Quickshell.Wayland
 import qs.modules
 import qs.modules.components
 import qs.modules.icons
@@ -17,6 +20,8 @@ Scope {
             id: vertPanel
             required property var modelData
             screen: modelData
+            WlrLayershell.layer: WlrLayer.Top
+            exclusionMode: ExclusionMode.Auto
             // implicitHeight: 30
             implicitWidth: screen.width * (1.7/100) // 1.7% of the screens width is the vert bar
             color: MainConfig.mainPanel
@@ -32,7 +37,7 @@ Scope {
             Rectangle {
                 id:panelRect
                 anchors.fill: parent
-                radius: 0
+                radius: 0 // width/2
                 color: MainConfig.mainColor
                 opacity: MainConfig.mainOpacity
             }
@@ -69,6 +74,7 @@ Scope {
                     // Set the rotation for vertical text
                     // transform: Rotation {origin.x: {column.width/2} origin.y: {column.height/2} angle: 270}
                     timeText: VertTime.time
+                    clockText.width: panelRect.width - 6
                     dateText: VertTime.date
                     fontSize: MainConfig.mainFontSize + 1.5
                     // fontFamily:FontIcons.iconFontFamily

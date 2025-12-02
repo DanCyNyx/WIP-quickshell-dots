@@ -18,9 +18,11 @@ Scope {
             required property var modelData
             id: panel
             screen: modelData
+            WlrLayershell.layer: WlrLayer.Top
+            exclusionMode: ExclusionMode.Auto
             implicitHeight: screen.height * (2.32/100) // 2.32% of the screens height is the bars reserved space
             color: MainConfig.mainPanel
-            // surfaceFormat {opaque:false}
+            //surfaceFormat {opaque:false}
             anchors {
                 top: true
                 left: true
@@ -45,7 +47,7 @@ Scope {
                 }
                 opacity: MainConfig.mainTextOpacity
                 implicitHeight: panel.height
-                implicitWidth: barRect.width/3
+                //implicitWidth: barRect.width/3
                 uniformCellSizes: true
                 TempWorkspace {
                     // Layout vars to align widget
@@ -62,37 +64,43 @@ Scope {
             RowLayout {
                 id: middleRow
                 anchors.centerIn: parent
-                spacing: parent.width/250
+                spacing: MainConfig.mainFontSize
                 opacity: MainConfig.mainTextOpacity
-                implicitWidth: barRect.width/3
+                //implicitWidth: barRect.width/3
                 implicitHeight: barRect.height
-                uniformCellSizes: true
+                //uniformCellSizes: true
                 ClockWidget {
-                    Layout.alignment: Qt.AlignVCenter
+                    Layout.alignment: Qt.AlignHCenter || Qt.AlignVCenter
                     //timetext: Time.time
-                    timeWidth: middleRow.width
+                    Layout.preferredWidth: clockText.contentWidth
+                    //clockText.width: MainConfig.mainFontSize * 8
                     // font.pointSize: MainConfig.mainFontSize+2
                 }
             }
             RowLayout {
                 id: rightRow
-                anchors{
+                anchors {
                     verticalCenter: parent.verticalCenter
-                    right: parent.right
-                    rightMargin: parent.width/70
+                    right: barRect.right
+                    rightMargin: MainConfig.mainFontSize * 3
                 }
-                uniformCellSizes: true
-                spacing: parent.width/250
-                implicitWidth: barRect.width/3
-                implicitHeight: barRect.height
+                //uniformCellSizes: true
+                //implicitWidth: panel.width/3 - anchors.rightMargin
+                implicitHeight: panel.height
+                spacing: MainConfig.mainFontSize*1.6
                 opacity: MainConfig.mainTextOpacity
+                VolumeWidget {
+                    id: barVolume
+                    //Layout.preferredWidth: implicitWidth*1.68
+                    Layout.alignment: Qt.AlignRight || Qt.AlignVCenter
+                    }
                 BatteryWidget {
-                    // spacing: screen.width / 70
                     // text: "; The battery is" + " " + Math.round(Battery.percentage*100) + "%"
                     // font.pointSize: MainConfig.mainFontSize+2
-                    implicitWidth: screen.width/10
-                    implicitHeight: screen.height/10
-                    Layout.alignment: Qt.AlignVCenter
+                    // Layout.preferredWidth: rightRow.width / 12
+                    implicitHeight: rightRow.height
+                    // Layout.maximumWidth: rightRow.width / 2
+                    Layout.alignment: Qt.AlignRight || Qt.AlignVCenter
                 }
             }
         }
