@@ -6,7 +6,7 @@ import Quickshell.Widgets
 import Quickshell.Services.Pipewire
 import qs.modules.components
 import qs.modules.icons
-
+// TODO VolumeWidget: add a volume popup
 Item {
     id: root
     property alias volumeText: volumeText

@@ -5,7 +5,6 @@ import Quickshell.Io
 import QtQuick.Controls
 import qs.modules.components
 // pragma Singleton
-// TODO change fontSize and timeWidth to values that use an alias property
 // example: property alias clocktext: tex
 // then i can set clocktext.width in other files
 Item {

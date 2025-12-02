@@ -7,7 +7,6 @@ pragma Singleton
 /* TODO MainConfig: make this file able to change what colours and configuration it has
 * based on values supplied by a qml file based on the folder the wallpaper is from
 */
-// TODO change the singleton values to qml objects
 Singleton {
     //////////////////////
     // Folder for theme //
