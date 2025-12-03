@@ -1,7 +1,8 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Io
+//import Quickshell.Io
+import QtQuick.Controls
 import Quickshell.Widgets
 import Quickshell.Services.Pipewire
 import qs.modules.components
@@ -10,10 +11,13 @@ import qs.modules.icons
 Item {
     id: root
     property alias volumeText: volumeText
+    property alias micText: micText
+    property alias volumeButton: volumeButton
     //property alias volumePopup: volumePopup
     property var sinkAudio: Audio.sink?.audio
     property var sourceAudio: Audio.source?.audio
-    implicitWidth: volumeText.contentWidth + micText.contentWidth + 10
+    implicitWidth: volumeText.contentWidth + micText.contentWidth + micText.anchors.leftMargin //+ 10
+    implicitHeight: Math.max(micText.contentHeight, volumeText.contentHeight)
     // Target the current default audio sink and source in order to get volume info
     PwObjectTracker {
         objects: [Audio.sink, Audio.source]
@@ -43,7 +47,7 @@ Item {
     function micCheck() {
         if (sourceAudio?.volume == 0 || Audio.sourceMuted) {
             micText.textIn = FontIcons.volume.microphoneMuted;
-        } else if (sourceAudio?.volume !== 0 && !Audio.sourceMuted ) {micText.textIn = FontIcons.volume.microphone}
+        } else if (sourceAudio?.volume > 0 && !Audio.sourceMuted ) {micText.textIn = FontIcons.volume.microphone}
     }
     Connections {
         target: sourceAudio ?? null
@@ -60,18 +64,27 @@ Item {
         volumeCheck ()
         micCheck()
     }
+    RoundButton {
+        id: volumeButton
+        anchors.centerIn: parent
+        width: parent.width + 10
+        height: parent.height - 2
+        radius: width/2
+        flat: true
+        opacity: MainConfig.opacity.button
+    }
     // The actual icons
     StyledText {
         id: volumeText
         fontFamily: FontIcons.iconFontFamily
-        textIn: "Audio out N/A"
+        textIn: "Audio N/A"
         anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
     }
     StyledText {
         id: micText
         fontFamily: FontIcons.iconFontFamily
-        textIn: "Mic N/A"
+        textIn: ""//"Mic N/A"
         anchors.left: volumeText.right
         anchors.leftMargin: MainConfig.text.fontSize*0.7
         anchors.verticalCenter: parent.verticalCenter

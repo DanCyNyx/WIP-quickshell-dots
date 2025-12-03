@@ -1,6 +1,5 @@
 // Bar.qml
 // File for all the layout and coloring parts of the bar
-
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
@@ -9,13 +8,12 @@ import Quickshell.Io
 import Quickshell.Wayland
 import qs.modules
 import qs.modules.components
-
 Scope {
-    // no more time object
     Variants {
         model: Quickshell.screens
         PanelWindow {
             required property var modelData
+            property real buttonHeight: panel.height - 2
             id: panel
             screen: modelData
             WlrLayershell.layer: WlrLayer.Top
@@ -73,6 +71,8 @@ Scope {
                     Layout.alignment: Qt.AlignHCenter || Qt.AlignVCenter
                     //timetext: Time.time
                     Layout.preferredWidth: clockText.contentWidth
+                    clockButton.height: buttonHeight
+                    clockButton.width: clockText.width + MainConfig.text.fontSize *1.5
                     //clockText.width: MainConfig.text.fontSize * 8
                     // font.pointSize: MainConfig.text.fontSize+2
                 }
@@ -87,12 +87,13 @@ Scope {
                 //uniformCellSizes: true
                 //implicitWidth: panel.width/3 - anchors.rightMargin
                 implicitHeight: panel.height
-                spacing: MainConfig.text.fontSize*1.6
+                spacing: MainConfig.text.fontSize*1.7
                 opacity: MainConfig.opacity.text
                 VolumeWidget {
                     id: barVolume
                     //Layout.preferredWidth: implicitWidth*1.68
                     Layout.alignment: Qt.AlignRight || Qt.AlignVCenter
+                    volumeButton.height: buttonHeight
                     }
                 BatteryWidget {
                     // text: "; The battery is" + " " + Math.round(Battery.percentage*100) + "%"

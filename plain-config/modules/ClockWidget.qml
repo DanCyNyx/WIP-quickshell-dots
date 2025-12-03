@@ -13,14 +13,16 @@ Item {
     property string dateText: Time.date
     property bool initialBool: true
     property alias clockText: tex
+    property alias clockButton: clockButton
     id: root
     RoundButton {
+        id: clockButton
         anchors.centerIn: tex
         width: tex.contentWidth + MainConfig.text.fontSize * 0.85
         height: tex.contentHeight + MainConfig.text.fontSize * 0.8
         radius: width/2
         flat: true
-        opacity: 0.25
+        opacity: MainConfig.opacity.button
         onClicked: {
             tex.textIn = initialBool ? Qt.binding(function(){return dateText}) : Qt.binding(function(){return timeText})
             initialBool = !initialBool

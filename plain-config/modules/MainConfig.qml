@@ -42,6 +42,7 @@ Singleton {
     opacity: QtObject {
         property real main: BaseConfig.opacity.mainOpacity
         property real text: BaseConfig.opacity.textOpacity
+        property real button: BaseConfig.opacity.buttonOpacity
     }
     ///////////
     // Audio //

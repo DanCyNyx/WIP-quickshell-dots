@@ -4,28 +4,28 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Widgets
 import QtQuick.Layouts
-import Quickshell.Services.UPower
 // pragma Singleton
 import qs.modules.components
 import qs.modules.icons
 
 // TODO VertBatteryWidget: allow battery info configuration from other files
-ColumnLayout {
-    id: column
+Item {
+    id: root
     // anchors.centerIn: parent
-    spacing: MainConfig.text.fontSize * 2 // find a way to make this be based on screen size
-    implicitHeight: 100 // random height, must assign in bar
-    implicitWidth: 100 // random width, must assign in bar
+    //spacing: MainConfig.text.fontSize * 2
+    implicitHeight: overseer.height // random height, must assign in bar
+    implicitWidth: overseer.width // random width, must assign in bar
     Item {
         id: overseer
-        Layout.alignment: Qt.AlignHCenter
+        implicitHeight: width * 1.1
+        implicitWidth: 3 * MainConfig.text.fontSize
+        anchors {
+            centerIn: root
+        }
         // Battery icon creation file
         BatteryVertical {
             id: battIcon
-            implicitWidth: 6 * MainConfig.text.fontSize / 2
-            implicitHeight: width * 1.1
-            anchors.centerIn: overseer
-            
+            anchors.fill: overseer
         }
         // Rectangle to act as charging bar
         Rectangle {
@@ -42,13 +42,16 @@ ColumnLayout {
             radius: MainConfig.text.fontSize / 11
         }
     }
-    
     // Displays Text of the battery percentage 
     /*
     StyledText {
         id: battText
         text: Math.round(Battery.percentage*100)
         Layout.alignment: Qt.AlignHCenter
+        anchors{
+            horizontalCenter: root.horizontalCenter
+            top: overseer.bottom
+        }
     }*/
 }
 

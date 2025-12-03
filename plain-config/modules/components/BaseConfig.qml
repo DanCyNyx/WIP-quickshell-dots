@@ -33,8 +33,9 @@ Singleton {
     // Opacity options
     opacity: QtObject {
         // Opacity/transparency of parts of bar and items in bar
-        property real mainOpacity: 0.7
-        property real textOpacity: 0.9
+        property real mainOpacity: 0.6 // default 0.7
+        property real textOpacity: 0.9 // default 0.9
+        property real buttonOpacity: 0.25 // default 0.25
     }
     // Audio configuration
     audio: QtObject {

@@ -1,6 +1,5 @@
 // Vertical_Bar.qml
-// File for all the layout and coloring parts of the bar
-
+// File for all the layout and coloring parts of the Vertical Bar
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
@@ -10,15 +9,13 @@ import Quickshell.Wayland
 import qs.modules
 import qs.modules.components
 import qs.modules.icons
-
-
 Scope {
-    // no more time object
     Variants {
         model: Quickshell.screens
         PanelWindow {
             id: vertPanel
             required property var modelData
+            property real buttonWidth: vertPanel.width - 4
             screen: modelData
             WlrLayershell.layer: WlrLayer.Top
             exclusionMode: ExclusionMode.Auto
@@ -68,14 +65,19 @@ Scope {
                 anchors.centerIn: parent
                 spacing: parent.height/250
                 opacity: MainConfig.opacity.text
+                implicitWidth: vertPanel.width
+                implicitHeight: vertPanel.height/3
                 uniformCellSizes: true
                 ClockWidget {
+                    id: vertClock
                     // Tranformation if Time.time is used instead of VertTime.time
                     // /transform: Rotation {origin.x: {middleColumn.width/2} origin.y: {middleColumn.height/2} angle: 270}
                     timeText: VertTime.time
                     dateText: VertTime.date
                     clockText.width: panelRect.width - 6
                     clockText.fontSize: MainConfig.text.fontSize + 1.5
+                    clockButton.height: clockText.height + MainConfig.text.fontSize *1.5
+                    clockButton.width: vertPanel.buttonWidth
                     // fontFamily:FontIcons.iconFontFamily
                     // Layout vars
                     Layout.minimumWidth: 16
@@ -88,17 +90,37 @@ Scope {
                 anchors {
                     horizontalCenter: parent.horizontalCenter
                     bottom: parent.bottom
+                    //top: middleColumn.bottom
                     // bottomMargin: parent.height/30
                     // verticalCenter: parent.verticalCenter
                 }
-                spacing: parent.height/250
+                spacing: MainConfig.text.fontSize * 0.6
                 opacity: MainConfig.opacity.text
-                uniformCellSizes: true
-                VertBatteryWidget{
-                    implicitWidth: screen.width/10
-                    implicitHeight: screen.height/10
-                    Layout.alignment: Qt.AlignHCenter
-                    Layout.bottomMargin: vertPanel.height/30
+                implicitWidth: vertPanel.width
+                implicitHeight: vertPanel.height/3
+                //uniformCellSizes: true
+                VolumeWidget {
+                    id:vertVolume
+                    Layout.preferredWidth: Math.max(micText.contentWidth,volumeText.contentWidth)
+                    Layout.alignment: Qt.AlignHCenter || Qt.AlignTop
+                    implicitWidth: Math.max(micText.contentWidth,volumeText.contentWidth)
+                    implicitHeight: volumeText.contentHeight //+ micText.contentHeight
+                    sourceAudio: null
+                    volumeButton.width: buttonWidth
+                    volumeButton.height: volumeButton.width //height + 4
+                    // Adds a microphone icon once micText.contentHeight and mictext.anchors are uncommented
+                    // micText.anchors {
+                    //     left: volumeText.left
+                    //     top: volumeText.bottom
+                    //     leftMargin: 0
+                    //     horizontalCenter: vertVolume.horizontalCenter
+                    // }
+                }
+                VertBatteryWidget {
+                    id: vertBattery
+                    Layout.alignment: Qt.AlignHCenter || Qt.AlignTop
+                    Layout.bottomMargin: vertPanel.height/40
+                    Layout.rightMargin: 1 // vertPanel.width / 100
                 }
             }
         }
