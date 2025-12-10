@@ -16,7 +16,8 @@ Scope {
             property real buttonHeight: panel.height - 2
             id: panel
             screen: modelData
-            WlrLayershell.layer: WlrLayer.Top
+            WlrLayershell.layer: MainConfig.barInfo.layer
+            WlrLayershell.namespace: "quickshell: Bar"
             exclusionMode: ExclusionMode.Auto
             implicitHeight: screen.height * (2.32/100) // 2.32% of the screens height is the bars reserved space
             color: MainConfig.colors.panel

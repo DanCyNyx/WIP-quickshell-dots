@@ -27,18 +27,16 @@ Item {
         delegate: Item {
             id: root
             required property var modelData
-            property int ids: modelData.id
+            property string names: modelData.name
             property string actives: modelData.active
             property string color1: MainConfig.colors.text
             // property string rectcolor: "transparent"
-            readonly property bool isurgent: modelData.urgent //&& HyprlandWorkspace.id == root.ids
-            readonly property bool isworkspaceactive: Hyprland.focusedWorkspace.id == root.ids
+            readonly property bool isurgent: modelData.urgent //&& HyprlandWorkspace.id == root.names
+            readonly property bool isworkspaceactive: Hyprland.focusedWorkspace.name == root.names
+            readonly property bool isSpecial: names.includes("special")
             // breaks things anchors.fill: parent
             implicitWidth: itemWidth
-            implicitHeight: itemHeight
-            /* Component.onCompleted: {
-                console.log("Urgency", isurgent)
-            }*/          
+            implicitHeight: itemHeight       
             Rectangle {
                 id: textbg
                 anchors.fill: textmouse
@@ -60,10 +58,18 @@ Item {
                     //texts.color = Qt.binding(function(){return !isworkspaceactive ? MainConfig.mainText : MainConfig.mainColor})
                 }
                 onClicked: {
-                    if (Hyprland.focusedWorkspace.id != root.ids) HyprData.hyprDispatch(`workspace ${root.ids}`)
-                    else return
+                    // Have to click on the special workspace's button again to toggle it off
+                    if (isSpecial) {
+                        HyprData.hyprDispatch(`togglespecialworkspace ${root.names.split(":")[1]}`);
+                    }
+                    else { 
+                        if (Hyprland.focusedWorkspace.name != root.names) HyprData.hyprDispatch(`workspace ${root.names}`);
+                        else return 
+                    }
                 }
-                
+                // Component.onCompleted: {
+                //     console.log("workspace name", root.isworkspaceactive)
+                // }
                 Rectangle {
                     id: textbgoverlay
                     anchors.fill: parent
@@ -72,7 +78,7 @@ Item {
                     opacity: 0.4
                 }
             }
-            // text for the workspace ids
+            // text for the workspace names
             /*
             Text {
                 id: texts
@@ -84,7 +90,7 @@ Item {
                 wrapMode: Text.Wrap
                 renderType: Text.NativeRendering
                 font.hintingPreference: Font.PreferFullHinting
-                text: root.ids
+                text: root.names
                 topPadding: itemHeight*0.13
                 font.pointSize: MainConfig.mainFontSize
                 color: !isworkspaceactive ? MainConfig.mainText : MainConfig.mainColor

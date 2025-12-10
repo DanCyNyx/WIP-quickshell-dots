@@ -9,6 +9,6 @@ import qs.modules.components
 * and also add an outer rim and rounded corners (like in caelestia dots)
 */
 Scope {
-    Bar{}
+    Bar {}
     VerticalBar{}
 }

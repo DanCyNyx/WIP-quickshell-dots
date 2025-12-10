@@ -1,9 +1,6 @@
 import QtQuick
-import QtQuick.Layouts
 import Quickshell
-//import Quickshell.Io
 import QtQuick.Controls
-import Quickshell.Widgets
 import Quickshell.Services.Pipewire
 import qs.modules.components
 import qs.modules.icons
@@ -16,30 +13,50 @@ Item {
     //property alias volumePopup: volumePopup
     property var sinkAudio: Audio.sink?.audio
     property var sourceAudio: Audio.source?.audio
+    property string sinkType: "Speaker"
+    property var sinkName: Audio.sink?.name
     implicitWidth: volumeText.contentWidth + micText.contentWidth + micText.anchors.leftMargin //+ 10
     implicitHeight: Math.max(micText.contentHeight, volumeText.contentHeight)
     // Target the current default audio sink and source in order to get volume info
     PwObjectTracker {
         objects: [Audio.sink, Audio.source]
     }
+    // Function to determine what type of sink the pipewire default is 
+    // currently only have support for bluetoothctl/bluez bluetooth speakers/headphones
+    function iconAssign() {
+        if (sinkName.includes("bluez_output")) {sinkType = "Bluetooth"}
+        else {sinkType = "Speaker"}
+    }
     // Function and connections for speaker audio
     function volumeCheck() {
-        if (sinkAudio?.volume <= 30/100 && sinkAudio?.volume !== 0 && !Audio.sinkMuted) {
-            volumeText.textIn = FontIcons.volume.speaker.low;
-        } else if (sinkAudio?.volume >= 30/100 && sinkAudio?.volume <= 60/100 && !Audio.sinkMuted) {
-            volumeText.textIn = FontIcons.volume.speaker.medium;
-        } else if (sinkAudio?.volume >= 60/100 && !Audio.sinkMuted) {
-            volumeText.textIn = FontIcons.volume.speaker.high;
-        } else if (sinkAudio?.volume == 0 || Audio.sinkMuted) {
-            volumeText.textIn = FontIcons.volume.speaker.muted;
+        if (sinkType == "Speaker") {
+            if (sinkAudio?.volume <= 30/100 && sinkAudio?.volume !== 0 && !Audio.sinkMuted) {
+                volumeText.textIn = FontIcons.volume.speaker.low;
+            } else if (sinkAudio?.volume >= 30/100 && sinkAudio?.volume <= 60/100 && !Audio.sinkMuted) {
+                volumeText.textIn = FontIcons.volume.speaker.medium;
+            } else if (sinkAudio?.volume >= 60/100 && !Audio.sinkMuted) {
+                volumeText.textIn = FontIcons.volume.speaker.high;
+            } else if (sinkAudio?.volume == 0 || Audio.sinkMuted) {
+                volumeText.textIn = FontIcons.volume.speaker.muted;
+            }
+        }
+        else if (sinkType == "Bluetooth") {
+            if (sinkAudio?.volume !== 0 && !Audio.sinkMuted) {
+                volumeText.textIn = FontIcons.volume.bluetooth
+            }
+            else if (sinkAudio?.volume == 0 || Audio.sinkMuted) {
+                volumeText.textIn = FontIcons.volume.bluetoothMuted
+            }
         }
     }
     Connections {
         target: sinkAudio ?? null
         function onVolumeChanged() {
+            iconAssign()
             volumeCheck()
         }
         function onMutedChanged() {
+            iconAssign()
             volumeCheck()
         }
     }
@@ -61,8 +78,14 @@ Item {
     // Reload the icons on startup and whenever widget is run
     // Helps make sure icons are correct on startup
     Component.onCompleted: {
-        volumeCheck ()
+        iconAssign()
+        volumeCheck()
         micCheck()
+    }
+    onSinkNameChanged: {
+        iconAssign()
+        volumeCheck()
+        console.log("",sinkName)
     }
     RoundButton {
         id: volumeButton
@@ -89,18 +112,4 @@ Item {
         anchors.leftMargin: MainConfig.text.fontSize*0.7
         anchors.verticalCenter: parent.verticalCenter
     }
-    // PopupWindow {
-    //     id: volumePopup
-    //     anchor.item: root
-    //     visible: true
-    //     implicitWidth: 400
-    //     implicitHeight: 50
-    //     color: "transparent"
-    //     Rectangle {
-    //         anchors.fill: parent
-    //         radius: width/10
-    //         color: MainConfig.colors.main
-    //         opacity: MainConfig.opacity.main
-    //     }
-    // }
 }

@@ -2,6 +2,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Io
+import Quickshell.Wayland
 import qs.modules.components
 pragma Singleton
 /* TODO MainConfig: make this file able to change what colours and configuration it has
@@ -17,7 +18,14 @@ Singleton {
     property QtObject text
     property QtObject opacity
     property QtObject audio
-    // MainConfig of the bar based on specific config file
+    property QtObject barInfo
+    // MainConfig of the bars based on specific config file
+    ///////////////////////////////
+    // Quickshell Widget windows //
+    ///////////////////////////////
+    barInfo: QtObject {
+        property var layer: WlrLayer.Bottom
+    }
     ////////////
     // Colors //
     ////////////

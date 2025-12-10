@@ -16,8 +16,10 @@ Scope {
             id: vertPanel
             required property var modelData
             property real buttonWidth: vertPanel.width - 4
+            property bool buttonClicked: false
             screen: modelData
-            WlrLayershell.layer: WlrLayer.Top
+            WlrLayershell.layer: MainConfig.barInfo.layer
+            WlrLayershell.namespace: "quickshell: VerticalBar"
             exclusionMode: ExclusionMode.Auto
             // implicitHeight: 30
             implicitWidth: screen.width * (1.7/100) // 1.7% of the screens width is the vert bar
@@ -29,7 +31,6 @@ Scope {
                 //right: true
                 left: true
                 bottom: true
-                
             }
             Rectangle {
                 id:panelRect
@@ -37,6 +38,32 @@ Scope {
                 radius: 0 // width/2
                 color: MainConfig.colors.main
                 opacity: MainConfig.opacity.main
+            }
+            LazyLoader {
+                id: testPopupLoader
+                active: buttonClicked
+                Popup {
+                    id: testPopup
+                    property var anchorItem: vertVolume.volumeText
+                    readonly property var itemBarLocation: vertPanel.itemPosition(anchorItem)
+                    readonly property real itemXPosition: itemBarLocation.x
+                    readonly property real itemYPosition: itemBarLocation.y
+                    property bool topMarginHigh: itemYPosition + height/2 > vertPanel.height
+                    anchors {
+                        top: true
+                        left: true
+                        //bottom: true
+                    }
+                    //implicitHeight: 100
+                    implicitWidth: 56
+                    margins {
+                        top: topMarginHigh? vertPanel.height - height : itemYPosition + anchorItem?.height/2 - height/2 // Puts it in the middle-left: vertPanel.height/2 - implicitHeight/2
+                        left: vertPanel.width * 0.13
+                    }
+                    // Component.onCompleted: {
+                    //     console.log("hi", margins.top)
+                    // }
+                }
             }
             ColumnLayout {
                 id: topColumn
@@ -47,6 +74,7 @@ Scope {
                 implicitHeight: vertPanel.height/3
                 //uniformCellSizes: true
                 TempWorkspace {
+                    id: vertWorkspace
                     // Values supplied to TempWorkspace Widget
                     listOrient: ListView.Vertical
                     rectRad: itemWidth * 0.5
@@ -100,7 +128,7 @@ Scope {
                 implicitHeight: vertPanel.height/3
                 //uniformCellSizes: true
                 VolumeWidget {
-                    id:vertVolume
+                    id: vertVolume
                     Layout.preferredWidth: Math.max(micText.contentWidth,volumeText.contentWidth)
                     Layout.alignment: Qt.AlignHCenter || Qt.AlignTop
                     implicitWidth: Math.max(micText.contentWidth,volumeText.contentWidth)
@@ -108,6 +136,9 @@ Scope {
                     sourceAudio: null
                     volumeButton.width: buttonWidth
                     volumeButton.height: volumeButton.width //height + 4
+                    volumeButton.onClicked: {
+                        buttonClicked = !buttonClicked
+                    }
                     // Adds a microphone icon once micText.contentHeight and mictext.anchors are uncommented
                     // micText.anchors {
                     //     left: volumeText.left
