@@ -85,7 +85,7 @@ Item {
     onSinkNameChanged: {
         iconAssign()
         volumeCheck()
-        console.log("",sinkName)
+        // console.log("",sinkName)
     }
     RoundButton {
         id: volumeButton
