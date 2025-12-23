@@ -24,7 +24,8 @@ Item {
     // Function to determine what type of sink the pipewire default is 
     // currently only have support for bluetoothctl/bluez bluetooth speakers/headphones
     function iconAssign() {
-        if (sinkName.includes("bluez_output")) {sinkType = "Bluetooth"}
+        if (sinkName?.includes("bluez_output")) {sinkType = "Bluetooth"}
+        else if (sinkName?.toLowerCase().includes("headphone")) {sinkType = "Headphones"}
         else {sinkType = "Speaker"}
     }
     // Function and connections for speaker audio
@@ -46,6 +47,14 @@ Item {
             }
             else if (sinkAudio?.volume == 0 || Audio.sinkMuted) {
                 volumeText.textIn = FontIcons.volume.bluetoothMuted
+            }
+        }
+        else if (sinkType == "Headphones") {
+            if (sinkAudio?.volume !== 0 && !Audio.sinkMuted) {
+                volumeText.textIn = FontIcons.volume.headphones
+            }
+            else if (sinkAudio?.volume == 0 || Audio.sinkMuted) {
+                volumeText.textIn = FontIcons.volume.headphonesMuted
             }
         }
     }
@@ -81,6 +90,7 @@ Item {
         iconAssign()
         volumeCheck()
         micCheck()
+        // console.log("",Audio.sink.name)
     }
     onSinkNameChanged: {
         iconAssign()
