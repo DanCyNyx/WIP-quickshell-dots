@@ -10,11 +10,12 @@ Item {
     property alias volumeText: volumeText
     property alias micText: micText
     property alias volumeButton: volumeButton
-    //property alias volumePopup: volumePopup
+    property alias volumePopupLoader: volumePopupLoader
     property var sinkAudio: Audio.sink?.audio
     property var sourceAudio: Audio.source?.audio
     property string sinkType: "Speaker"
     property var sinkName: Audio.sink?.name
+    property bool popupShow: false
     implicitWidth: volumeText.contentWidth + micText.contentWidth + micText.anchors.leftMargin //+ 10
     implicitHeight: Math.max(micText.contentHeight, volumeText.contentHeight)
     // Target the current default audio sink and source in order to get volume info
@@ -105,6 +106,9 @@ Item {
         radius: width/2
         flat: true
         opacity: MainConfig.opacity.button
+        onClicked: {
+            popupShow=!popupShow
+        }
     }
     // The actual icons
     StyledText {
@@ -121,5 +125,47 @@ Item {
         anchors.left: volumeText.right
         anchors.leftMargin: MainConfig.text.fontSize*0.7
         anchors.verticalCenter: parent.verticalCenter
+    }
+    LazyLoader {
+        id: volumePopupLoader
+        property QtObject margin
+        property QtObject dimensions
+        property QtObject anchor
+        active: popupShow
+        anchor: QtObject {
+            property bool top: false
+            property bool bottom: false
+            property bool left: false
+            property bool right: false
+        }
+        margin: QtObject {
+            property real top: 0
+            property real bottom:0
+            property real left:0
+            property real right:0
+        }
+        dimensions: QtObject {
+            property real width: 0
+            property real height: 0
+            property real implicitHeight: 0
+            property real implicitWidth: 0
+        }
+        Popup {
+            id: volumePopup
+            margins {
+                top: volumePopupLoader.margin.top
+                bottom: volumePopupLoader.margin.bottom
+                left: volumePopupLoader.margin.left
+                right: volumePopupLoader.margin.right
+            }
+            anchors {
+                top: volumePopupLoader.anchor.top
+                bottom: volumePopupLoader.anchor.bottom
+                left: volumePopupLoader.anchor.left
+                right: volumePopupLoader.anchor.right
+            }
+            implicitHeight: volumePopupLoader.dimensions.implicitHeight
+            implicitWidth: volumePopupLoader.dimensions.implicitWidth
+        }
     }
 }

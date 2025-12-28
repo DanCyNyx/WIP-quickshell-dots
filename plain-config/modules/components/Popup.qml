@@ -24,29 +24,29 @@ PanelWindow {
     WlrLayershell.namespace: "quickshell: Popup"
     exclusionMode: ExclusionMode.Normal
     implicitWidth: 100
-    implicitHeight: popupText.contentHeight + 10
+    implicitHeight: 10 // + popupText.contentHeight
     Rectangle {
         anchors.fill: parent
         color: MainConfig.colors.text
         opacity: MainConfig.opacity.text
         radius: width/2 - width * 0.33 //0
     }
-    RoundButton {
-        anchors.centerIn: popupText
-        width: popupText.contentWidth + 6
-        height: popupText.contentHeight + MainConfig.text.fontSize * 0.3
-        radius: width/2
-        flat: true
-        opacity: MainConfig.opacity.button
-    }
-    StyledText {
-        id: popupText
-        textIn: Math.round(Audio.sink.audio.volume*100) + "%"
-        anchors.centerIn: parent
-        verticalAlignment: Text.AlignVCenter
-        horizontalAlignment: Text.AlignHCenter
-        width: parent.width
-        color: "white"
-    }
+    // RoundButton {
+    //     anchors.centerIn: popupText
+    //     width: popupText.contentWidth + 6
+    //     height: popupText.contentHeight + MainConfig.text.fontSize * 0.3
+    //     radius: width/2
+    //     flat: true
+    //     opacity: MainConfig.opacity.button
+    // }
+    // StyledText {
+    //     id: popupText
+    //     textIn: Math.round(Audio.sink.audio.volume*100) + "%"
+    //     anchors.centerIn: parent
+    //     verticalAlignment: Text.AlignVCenter
+    //     horizontalAlignment: Text.AlignHCenter
+    //     width: parent.width
+    //     color: "white"
+    // }
     color: MainConfig.colors.panel
 }

@@ -29,10 +29,10 @@ Singleton {
         property string bluetoothMuted: "󰂲"
         property QtObject speaker
         speaker: QtObject {
-            property string low: ""
-            property string medium: ""
-            property string high: ""
-            property string muted: ""
+            property string low: "\uf026"
+            property string medium: "\uf027"
+            property string high: "\uf028"
+            property string muted: "\ueee8"
         }
     }
     // CPU, GPU and RAM icons

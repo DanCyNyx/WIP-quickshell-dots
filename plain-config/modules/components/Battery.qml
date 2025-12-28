@@ -10,7 +10,7 @@ pragma Singleton
 Singleton {
     id: root
     // code gotten from end_4's illogical-impulse repo
-    readonly property bool available: UPower.displayDevice.isLaptopBattery
+    readonly property bool available: UPower.displayDevice.isLaptopBattery & MainConfig.battery.isFunctional
     readonly property var chargeState: UPower.displayDevice.state
     readonly property bool isCharging: chargeState == UPowerDeviceState.Charging
     readonly property bool isPluggedIn: isCharging || chargeState == UPowerDeviceState.PendingCharge
@@ -26,7 +26,7 @@ Singleton {
     property real timeToEmpty: UPower.displayDevice.timeToEmpty
     property real timeToFull: UPower.displayDevice.timeToFull
     // Suspend and sound options (to be set by a different file)
-    property bool automaticSuspend: true
+    property bool automaticSuspend: MainConfig.battery.automaticSuspend
     property bool soundEnabled: true
     property real suspendTime: 10 // Default 10 seconds
     // Booleans to use to notify user

@@ -19,12 +19,21 @@ Singleton {
     property QtObject opacity
     property QtObject audio
     property QtObject barInfo
+    property QtObject battery
+    
     // MainConfig of the bars based on specific config file
     ///////////////////////////////
     // Quickshell Widget windows //
     ///////////////////////////////
     barInfo: QtObject {
-        property var layer: WlrLayer.Bottom
+        property var layer: WlrLayer.Top
+    }
+    /////////////
+    // Battery //
+    /////////////
+    battery: QtObject {
+        property bool isFunctional: false
+        property bool automaticSuspend: false
     }
     ////////////
     // Colors //

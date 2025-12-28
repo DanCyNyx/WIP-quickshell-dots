@@ -39,32 +39,32 @@ Scope {
                 color: MainConfig.colors.main
                 opacity: MainConfig.opacity.main
             }
-            LazyLoader {
-                id: testPopupLoader
-                active: buttonClicked
-                Popup {
-                    id: testPopup
-                    property var anchorItem: vertVolume.volumeText
-                    readonly property var itemBarLocation: vertPanel.itemPosition(anchorItem)
-                    readonly property real itemXPosition: itemBarLocation.x
-                    readonly property real itemYPosition: itemBarLocation.y
-                    property bool topMarginHigh: itemYPosition + height/2 > vertPanel.height
-                    anchors {
-                        top: true
-                        left: true
-                        //bottom: true
-                    }
-                    //implicitHeight: 100
-                    implicitWidth: 56
-                    margins {
-                        top: topMarginHigh? vertPanel.height - height : itemYPosition + anchorItem?.height/2 - height/2 // Puts it in the middle-left: vertPanel.height/2 - implicitHeight/2
-                        left: vertPanel.width * 0.13
-                    }
-                    // Component.onCompleted: {
-                    //     console.log("hi", margins.top)
-                    // }
-                }
-            }
+            // LazyLoader {
+            //     id: testPopupLoader
+            //     active: false //buttonClicked
+            //     Popup {
+            //         id: testPopup
+            //         property var anchorItem: vertVolume.volumeText
+            //         readonly property var itemBarLocation: vertPanel.itemPosition(anchorItem)
+            //         readonly property real itemXPosition: itemBarLocation.x
+            //         readonly property real itemYPosition: itemBarLocation.y
+            //         property bool topMarginHigh: itemYPosition + height/2 > vertPanel.height
+            //         anchors {
+            //             top: true
+            //             left: true
+            //             //bottom: true
+            //         }
+            //         //implicitHeight: 100
+            //         implicitWidth: 56
+            //         margins {
+            //             top: topMarginHigh? vertPanel.height - height : itemYPosition + anchorItem?.height/2 - height/2 // Puts it in the middle-left: vertPanel.height/2 - implicitHeight/2
+            //             left: vertPanel.width * 0.13
+            //         }
+            //         // Component.onCompleted: {
+            //         //     console.log("hi", margins.top)
+            //         // }
+            //     }
+            // }
             ColumnLayout {
                 id: topColumn
                 anchors.top: parent.top
@@ -133,11 +133,16 @@ Scope {
                     Layout.alignment: Qt.AlignHCenter || Qt.AlignTop
                     implicitWidth: Math.max(micText.contentWidth,volumeText.contentWidth)
                     implicitHeight: volumeText.contentHeight //+ micText.contentHeight
-                    sourceAudio: null
+                    // sourceAudio: null // gets rid of mic icon
                     volumeButton.width: buttonWidth
                     volumeButton.height: volumeButton.width //height + 4
+                    // volumeButton.onClicked: {
+                    //     buttonClicked = !buttonClicked
+                    // }
                     volumeButton.onClicked: {
-                        buttonClicked = !buttonClicked
+                        if (volumePopupLoader.active == false) return;
+                        volumePopupLoader.dimensions.implicitWidth= 10
+                        volumePopupLoader.dimensions.implicitHeight= 10 
                     }
                     // Adds a microphone icon once micText.contentHeight and mictext.anchors are uncommented
                     // micText.anchors {
