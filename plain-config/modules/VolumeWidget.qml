@@ -4,7 +4,7 @@ import QtQuick.Controls
 import Quickshell.Services.Pipewire
 import qs.modules.components
 import qs.modules.icons
-// TODO VolumeWidget: add a volume popup
+// TODO VolumeWidget: Change the popup's contents to a volume control window of all currently playing media
 Item {
     id: root
     property alias volumeText: volumeText
@@ -107,7 +107,7 @@ Item {
         flat: true
         opacity: MainConfig.opacity.button
         onClicked: {
-            popupShow=!popupShow
+            root.popupShow=!root.popupShow
         }
     }
     // The actual icons
@@ -166,6 +166,15 @@ Item {
             }
             implicitHeight: volumePopupLoader.dimensions.implicitHeight
             implicitWidth: volumePopupLoader.dimensions.implicitWidth
+                StyledText {
+                    id: popupText
+                    textIn: Math.round(sinkAudio?.volume*100) + "%"
+                    anchors.centerIn: parent
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    width: parent.width
+                    color: MainConfig.colors.main
+                }
         }
     }
 }

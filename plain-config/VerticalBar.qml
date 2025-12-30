@@ -132,7 +132,7 @@ Scope {
                     Layout.preferredWidth: Math.max(micText.contentWidth,volumeText.contentWidth)
                     Layout.alignment: Qt.AlignHCenter || Qt.AlignTop
                     implicitWidth: Math.max(micText.contentWidth,volumeText.contentWidth)
-                    implicitHeight: volumeText.contentHeight //+ micText.contentHeight
+                    implicitHeight: volumeText.contentHeight //+ micText.contentHeight + 15
                     // sourceAudio: null // gets rid of mic icon
                     volumeButton.width: buttonWidth
                     volumeButton.height: volumeButton.width //height + 4
@@ -141,8 +141,15 @@ Scope {
                     // }
                     volumeButton.onClicked: {
                         if (volumePopupLoader.active == false) return;
-                        volumePopupLoader.dimensions.implicitWidth= 10
-                        volumePopupLoader.dimensions.implicitHeight= 10 
+                        // Popup dimensions
+                        volumePopupLoader.dimensions.implicitWidth = 56
+                        volumePopupLoader.dimensions.implicitHeight = 20
+                        // Popup anchors
+                        volumePopupLoader.anchor.top = true
+                        volumePopupLoader.anchor.left = true
+                        // Popup margins from bar
+                        volumePopupLoader.margin.top = vertPanel.itemPosition(vertVolume).y + vertVolume.height/2 - volumePopupLoader.dimensions.implicitHeight/2
+                        volumePopupLoader.margin.left = vertPanel.width * 0.13
                     }
                     // Adds a microphone icon once micText.contentHeight and mictext.anchors are uncommented
                     // micText.anchors {
