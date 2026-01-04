@@ -76,7 +76,7 @@ Scope {
                 TempWorkspace {
                     id: vertWorkspace
                     // Values supplied to TempWorkspace Widget
-                    listOrient: ListView.Vertical
+                    listView.orientation: ListView.Vertical
                     rectRad: itemWidth * 0.5
                     //itemheight: itemwidth // - 2 // 20 with text
                     //itemwidth: (MainConfig.text.fontSize * 1.1)
@@ -145,7 +145,7 @@ Scope {
                         topMarginHigh = Qt.binding(function(){return vertPanel.itemPosition(vertVolume).y + volumePopupLoader.dimensions.implicitHeight/2 > vertPanel.height})
                         // Popup dimensions
                         volumePopupLoader.dimensions.implicitWidth = 500
-                        volumePopupLoader.dimensions.implicitHeight = 150
+                        volumePopupLoader.dimensions.implicitHeight = 120
                         volumePopupLoader.dimensions.radius = 4
                         // Popup anchors
                         volumePopupLoader.anchor.top = true

@@ -136,7 +136,7 @@ Singleton {
                 objects: [modelData?.target, modelData?.source]
             }
             Component.onCompleted: {
-                if (modelData?.source.isStream && !modelData?.source.name.includes("ee") && !modelData?.source.name.includes("eeasyeffects")) {
+                if (modelData?.source.isStream && !modelData?.source.name.includes("ee") && !modelData?.source.name.includes("easyeffects")) {
                     root.nonEEStreamLinkGroups.push(modelData)
                 }
             }

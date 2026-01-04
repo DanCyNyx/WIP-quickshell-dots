@@ -109,7 +109,7 @@ ScrollView {
 
                     StyledSlider {
                         Layout.preferredWidth: sliderWidth
-                        //Layout.fillWidth: true
+                        // Layout.fillWidth: true
                         value: eeMixerEntry.node.audio.volume*100
                         onValueChanged: eeMixerEntry.node.audio.volume = value/100
                     }
@@ -123,8 +123,7 @@ ScrollView {
             ColumnLayout {
                 id: streamsMixerEntry
                 required property var modelData
-                property bool isSourceEE: modelData?.source.name.includes("ee") || modelData?.source.name.includes("easyeffects")
-                property PwNode node: isSourceEE? null: modelData?.source
+                property PwNode node: modelData?.source
                 Component.onCompleted:{
                     const name = streamsMixerEntry.node?.name
                     console.log(`${name}'s state = `,streamsMixerEntry.modelData.state)
@@ -147,7 +146,7 @@ ScrollView {
 
                     Button {
                         id:streamsButton
-                        text: (!isSourceEE && streamsMixerEntry.node.audio.muted) ? "unmute" : "mute"
+                        text: streamsMixerEntry.node.audio.muted ? "unmute" : "mute"
                         onClicked: streamsMixerEntry.node.audio.muted = !streamsMixerEntry.node.audio.muted
                     }
                 }
@@ -169,7 +168,7 @@ ScrollView {
         }
         Item {
             Layout.fillWidth: true
-            //color: 'transparent'
+            // color: 'transparent'
             implicitHeight: 10
         }
     }

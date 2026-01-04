@@ -10,29 +10,30 @@ import qs.modules
 import qs.modules.components
 // TODO workspace: can use alias instead of directly setting the itemWidth and height and listOrient
 Item {
-    id: workroot
+    id: root
     property real itemWidth: (MainConfig.text.fontSize*1.2)
     property real itemHeight: itemWidth
     property real rectRad: itemWidth/2
     property var listOrient: ListView.Horizontal
+    property alias listView: listView
     implicitWidth: itemWidth*14.8
     implicitHeight: itemHeight*14.8
     ListView {
-        id: listv
+        id: listView
         model: Hyprland.workspaces
-        orientation: listOrient
+        orientation: ListView.Horizontal
         spacing: 7
         anchors.fill: parent
         // anchors.fill: parent
         delegate: Item {
-            id: root
+            id: itemRoot
             required property var modelData
             property string names: modelData.name
             property string actives: modelData.active
             property string color1: MainConfig.colors.text
             // property string rectcolor: "transparent"
-            readonly property bool isurgent: modelData.urgent //&& HyprlandWorkspace.id == root.names
-            readonly property bool isworkspaceactive: Hyprland.focusedWorkspace.name == root.names
+            readonly property bool isurgent: modelData.urgent //&& HyprlandWorkspace.id == itemRoot.names
+            readonly property bool isworkspaceactive: Hyprland.focusedWorkspace.name == itemRoot.names
             readonly property bool isSpecial: names.includes("special")
             // breaks things anchors.fill: parent
             implicitWidth: itemWidth
@@ -47,7 +48,7 @@ Item {
             }
             MouseArea {
                 id: textmouse
-                anchors.fill: root
+                anchors.fill: itemRoot
                 hoverEnabled: true
                 onEntered: {
                     textbgoverlay.color = "black";
@@ -60,15 +61,15 @@ Item {
                 onClicked: {
                     // Have to click on the special workspace's button again to toggle it off
                     if (isSpecial) {
-                        HyprData.hyprDispatch(`togglespecialworkspace ${root.names.split(":")[1]}`);
+                        HyprData.hyprDispatch(`togglespecialworkspace ${itemRoot.names.split(":")[1]}`);
                     }
                     else { 
-                        if (Hyprland.focusedWorkspace.name != root.names) HyprData.hyprDispatch(`workspace ${root.names}`);
+                        if (Hyprland.focusedWorkspace.name != itemRoot.names) HyprData.hyprDispatch(`workspace ${itemRoot.names}`);
                         else return 
                     }
                 }
                 // Component.onCompleted: {
-                //     console.log("workspace name", root.isworkspaceactive)
+                //     console.log("workspace name", itemRoot.isworkspaceactive)
                 // }
                 Rectangle {
                     id: textbgoverlay
@@ -90,7 +91,7 @@ Item {
                 wrapMode: Text.Wrap
                 renderType: Text.NativeRendering
                 font.hintingPreference: Font.PreferFullHinting
-                text: root.names
+                text: itemRoot.names
                 topPadding: itemHeight*0.13
                 font.pointSize: MainConfig.mainFontSize
                 color: !isworkspaceactive ? MainConfig.mainText : MainConfig.mainColor

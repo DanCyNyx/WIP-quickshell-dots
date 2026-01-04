@@ -5,7 +5,6 @@ import Quickshell.Services.Pipewire
 import qs.modules.components
 import qs.modules.icons
 // TODO VolumeWidget: Change the popup's contents to a volume control window of all currently playing media
-// current uptime 3 hours
 Item {
     id: root
     property alias volumeText: volumeText
