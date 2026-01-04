@@ -8,6 +8,7 @@ import qs.modules
 // Make a panel window with a configurable size that is placed in a lazyloader
 // that panel window should be able to anchor itself to whatever spot the popup is supposed to show up in or to the top of the screen and have a specific width
 PanelWindow {
+    property alias background: backgroundRect
     anchors {
         top: false
         bottom: false
@@ -26,6 +27,7 @@ PanelWindow {
     implicitWidth: 100
     implicitHeight: 10 // + popupText.contentHeight
     Rectangle {
+        id: backgroundRect
         anchors.fill: parent
         color: MainConfig.colors.text
         opacity: MainConfig.opacity.text

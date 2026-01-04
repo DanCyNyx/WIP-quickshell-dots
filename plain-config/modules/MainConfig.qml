@@ -65,8 +65,8 @@ Singleton {
     // Audio //
     ///////////
     audio: QtObject {
-        property bool protectionEnabled: true
-        property real maxAllowedIncrease: 10
+        property bool protectionEnabled: false
+        property real maxAllowedIncrease: 30
         property real maxAllowed: 100
         function playSystemSound(soundName) {
             BaseConfig.audio.playSystemSound(soundName)

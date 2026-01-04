@@ -5,6 +5,7 @@ import Quickshell.Services.Pipewire
 import qs.modules.components
 import qs.modules.icons
 // TODO VolumeWidget: Change the popup's contents to a volume control window of all currently playing media
+// current uptime 3 hours
 Item {
     id: root
     property alias volumeText: volumeText
@@ -149,6 +150,7 @@ Item {
             property real height: 0
             property real implicitHeight: 0
             property real implicitWidth: 0
+            property real radius: 0
         }
         Popup {
             id: volumePopup
@@ -166,15 +168,26 @@ Item {
             }
             implicitHeight: volumePopupLoader.dimensions.implicitHeight
             implicitWidth: volumePopupLoader.dimensions.implicitWidth
-                StyledText {
-                    id: popupText
-                    textIn: Math.round(sinkAudio?.volume*100) + "%"
-                    anchors.centerIn: parent
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    width: parent.width
-                    color: MainConfig.colors.main
-                }
+            //height: mixer.height + 50
+            //width: mixer.width + 50
+            background.radius: volumePopupLoader.dimensions.radius
+            Mixer {
+                id: mixer
+                anchors.centerIn: parent
+                implicitWidth: parent.width - 5
+                implicitHeight: parent.height
+                sliderWidth: parent.width - 90
+            }
+            // StyledSlider {
+            //     id: volumeSlider
+            //     from: 0
+            //     value: sinkAudio.volume*100
+            //     to: 100
+            //     onValueChanged: {
+            //         Audio.setSinkVolume(Math.round(volumeSlider.value))
+            //     }
+            //     anchors.centerIn: parent
+            // }
         }
     }
 }

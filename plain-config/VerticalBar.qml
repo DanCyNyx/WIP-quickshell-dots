@@ -129,6 +129,7 @@ Scope {
                 //uniformCellSizes: true
                 VolumeWidget {
                     id: vertVolume
+                    property bool topMarginHigh: false
                     Layout.preferredWidth: Math.max(micText.contentWidth,volumeText.contentWidth)
                     Layout.alignment: Qt.AlignHCenter || Qt.AlignTop
                     implicitWidth: Math.max(micText.contentWidth,volumeText.contentWidth)
@@ -141,14 +142,16 @@ Scope {
                     // }
                     volumeButton.onClicked: {
                         if (volumePopupLoader.active == false) return;
+                        topMarginHigh = Qt.binding(function(){return vertPanel.itemPosition(vertVolume).y + volumePopupLoader.dimensions.implicitHeight/2 > vertPanel.height})
                         // Popup dimensions
-                        volumePopupLoader.dimensions.implicitWidth = 56
-                        volumePopupLoader.dimensions.implicitHeight = 20
+                        volumePopupLoader.dimensions.implicitWidth = 500
+                        volumePopupLoader.dimensions.implicitHeight = 150
+                        volumePopupLoader.dimensions.radius = 4
                         // Popup anchors
                         volumePopupLoader.anchor.top = true
                         volumePopupLoader.anchor.left = true
                         // Popup margins from bar
-                        volumePopupLoader.margin.top = vertPanel.itemPosition(vertVolume).y + vertVolume.height/2 - volumePopupLoader.dimensions.implicitHeight/2
+                        volumePopupLoader.margin.top = topMarginHigh? vertPanel.height - volumePopupLoader.dimensions.implicitHeight - 5: vertPanel.itemPosition(vertVolume).y + vertVolume.height/2 - volumePopupLoader.dimensions.implicitHeight/2
                         volumePopupLoader.margin.left = vertPanel.width * 0.13
                     }
                     // Adds a microphone icon once micText.contentHeight and mictext.anchors are uncommented
