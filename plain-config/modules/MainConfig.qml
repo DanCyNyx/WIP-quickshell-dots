@@ -32,7 +32,7 @@ Singleton {
     // Battery //
     /////////////
     battery: QtObject {
-        property bool isFunctional: false
+        property bool isFunctional: true
         property bool automaticSuspend: false
     }
     ////////////
