@@ -79,7 +79,7 @@ Singleton {
             lastVolume = sink.audio.volume;
         }
     }
-    // My Own Code
+    // My Own Code- Currently only used by the mixer
     // Finds the easy effects sink by looking through all current link groups
     // Useful for Mixer.qml
     readonly property alias eeRemover:eeRemover
@@ -103,41 +103,68 @@ Singleton {
         }
     }
     // Lists all easy effects Link Groups with stream sources
-    property list<PwLinkGroup> eeStreamLinkGroups
+    property list<PwLinkGroup> eeLinkGroups
+    property list<PwNode> eeLinkSources
+    property alias eeLinkLoader:eeLinkLoader
     PwNodeLinkTracker {
         id: easyEffectsTracker
         node: easyEffectsSink
     }
-    Variants {
-        model: easyEffectsTracker.linkGroups
-        delegate: Item {
-            required property PwLinkGroup modelData
-            PwObjectTracker {
-                objects: [modelData?.target, modelData?.source]
+    LazyLoader {
+        id: eeLinkLoader
+        active: false
+        onActiveChanged: {
+            if (!active) {
+                eeLinkGroups.length=0
+                eeLinkSources.length=0
             }
-            Component.onCompleted: {
-                if (modelData?.source.isStream && !modelData?.source.name.includes("ee") && !modelData?.source.name.includes("eeasyeffects")) {
-                    root.eeStreamLinkGroups.push(modelData)
+        }
+        Variants {
+            model: easyEffectsTracker.linkGroups
+            delegate: Item {
+                required property PwLinkGroup modelData
+                PwObjectTracker {
+                    objects: [modelData?.target, modelData?.source]
+                }
+                Component.onCompleted: {
+                    if (modelData.source.audio != null && modelData.source.ready && modelData?.source.isStream && !modelData?.source.name.includes("ee") && !modelData?.source.name.includes("easyeffects")) {
+                        root.eeLinkGroups.push(modelData)
+                        root.eeLinkSources.push(modelData.source)
+                    }
                 }
             }
         }
     }
+    
     // Lists all non-easy effects Link Groups with stream sources
-    property list<PwLinkGroup> nonEEStreamLinkGroups
+    property list<PwLinkGroup> nonEELinkGroups
+    property list<PwNode> nonEELinkSources
+    property alias nonEELinkLoader:nonEELinkLoader
     PwNodeLinkTracker {
         id: speakerTracker
         node: root.sink
     }
-    Variants {
-        model: speakerTracker.linkGroups
-        delegate: Item {
-            required property PwLinkGroup modelData
-            PwObjectTracker {
-                objects: [modelData?.target, modelData?.source]
+    LazyLoader {
+        id: nonEELinkLoader
+        active: false
+        onActiveChanged: {
+            if (!active) {
+                nonEELinkGroups.length=0
+                nonEELinkSources.length=0
             }
-            Component.onCompleted: {
-                if (modelData?.source.isStream && !modelData?.source.name.includes("ee") && !modelData?.source.name.includes("easyeffects")) {
-                    root.nonEEStreamLinkGroups.push(modelData)
+        }
+        Variants {
+            model: speakerTracker.linkGroups
+            delegate: Item {
+                required property PwLinkGroup modelData
+                PwObjectTracker {
+                    objects: [modelData?.target, modelData?.source]
+                }
+                Component.onCompleted: {
+                    if (modelData!= null && modelData.source.ready && modelData?.source.isStream && !modelData?.source.name.includes("ee") && !modelData?.source.name.includes("easyeffects")) {
+                        nonEELinkGroups.push(modelData)
+                        nonEELinkSources.push(modelData.source)
+                    }
                 }
             }
         }

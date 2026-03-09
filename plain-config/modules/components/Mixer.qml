@@ -8,9 +8,14 @@ import qs.modules.icons
 ScrollView {
     id: root
     property real sliderWidth: 100
+    property bool active: false
     contentWidth: availableWidth
     //contentHeight: availableHeight + 20
     padding: 5
+    onActiveChanged: {
+        Audio.eeLinkLoader.active = Qt.binding(function(){return root.active})
+        Audio.nonEELinkLoader.active = Qt.binding(function(){return root.active})
+    }
     PwObjectTracker {
         objects: [Audio.sink, Audio.source]
     }
@@ -21,10 +26,8 @@ ScrollView {
         ColumnLayout {
             id: mixerEntry
             property PwNode node: Audio.sink
-
             // bind the node so we can read its properties
-            PwObjectTracker { objects: [ mixerEntry.node ] }
-
+            PwObjectTracker {objects: [mixerEntry.node]}
             RowLayout {
                 Label {
                     text: {
@@ -37,21 +40,19 @@ ScrollView {
                     width: root.width - sinkButton.width
                     maximumLineCount:1
                     wrapMode:Text.Wrap
+                    font.bold: true
                 }
-
                 Button {
                     id: sinkButton
                     text: mixerEntry.node.audio.muted ? "unmute" : "mute"
                     onClicked: mixerEntry.node.audio.muted = !mixerEntry.node.audio.muted
                 }
             }
-
             RowLayout {
                 Label {
                     Layout.preferredWidth: 50
                     text: `${Math.floor(mixerEntry.node.audio.volume * 100)}%`
                 }
-
                 StyledSlider {
                     Layout.preferredWidth: sliderWidth
                     //Layout.fillWidth: true
@@ -69,18 +70,13 @@ ScrollView {
         // Repeater for easyeffects controlled applications
         // Linktracking done in Audio.qml to filter out non-stream link sources
         Repeater {
-            model: Audio.eeStreamLinkGroups
+            model: Audio.eeLinkSources
             ColumnLayout {
                 id: eeMixerEntry
                 required property var modelData
-                property PwNode node: modelData?.source
-                Component.onCompleted:{
-                    const name = eeMixerEntry.node.name
-                    console.log(`Easy Effects-${name}'s state = `,eeMixerEntry.modelData.state)
-                }
+                property PwNode node: modelData
                 // bind the node so we can read its properties
-                PwObjectTracker { objects: [ eeMixerEntry.node ] }
-
+                PwObjectTracker {objects: [eeMixerEntry.node]}
                 RowLayout {
                     Label {
                         text: {
@@ -93,25 +89,22 @@ ScrollView {
                         maximumLineCount:1
                         wrapMode:Text.Wrap
                     }
-
                     Button {
                         id: eeButton
                         text: eeMixerEntry.node.audio.muted ? "unmute" : "mute"
                         onClicked: eeMixerEntry.node.audio.muted = !eeMixerEntry.node.audio.muted
                     }
                 }
-
                 RowLayout {
                     Label {
                         Layout.preferredWidth: 50
                         text: `${Math.floor(eeMixerEntry.node.audio.volume * 100)}%`
                     }
-
                     StyledSlider {
                         Layout.preferredWidth: sliderWidth
                         // Layout.fillWidth: true
                         value: eeMixerEntry.node.audio.volume*100
-                        onValueChanged: eeMixerEntry.node.audio.volume = value/100
+                        onValueChanged:eeMixerEntry.node.audio.volume = value/100
                     }
                 }
             }
@@ -119,18 +112,13 @@ ScrollView {
         // Repeater for non Easy effects applications
         // Linktracking done in Audio.qml to filter out non-stream link sources
         Repeater {
-            model: Audio.nonEEStreamLinkGroups 
+            model: Audio.nonEELinkSources
             ColumnLayout {
                 id: streamsMixerEntry
                 required property var modelData
-                property PwNode node: modelData?.source
-                Component.onCompleted:{
-                    const name = streamsMixerEntry.node?.name
-                    console.log(`${name}'s state = `,streamsMixerEntry.modelData.state)
-                }
+                property PwNode node: modelData
                 // bind the node so we can read its properties
-                PwObjectTracker { objects: [ streamsMixerEntry.node ]}
-                // The Lazy Loader prevents items from being shown unless they aren't from easyeffects
+                PwObjectTracker {objects: [streamsMixerEntry.node]}
                 RowLayout {
                     Label {
                         text: {
@@ -143,25 +131,22 @@ ScrollView {
                         maximumLineCount:1
                         wrapMode:Text.Wrap
                     }
-
                     Button {
                         id:streamsButton
                         text: streamsMixerEntry.node.audio.muted ? "unmute" : "mute"
                         onClicked: streamsMixerEntry.node.audio.muted = !streamsMixerEntry.node.audio.muted
                     }
                 }
-
                 RowLayout {
                     Label {
                         Layout.preferredWidth: 50
                         text: `${Math.floor(streamsMixerEntry.node.audio.volume * 100)}%`
                     }
-
                     StyledSlider {
                         Layout.preferredWidth: sliderWidth
                         //Layout.fillWidth: true
                         value: streamsMixerEntry.node.audio.volume*100
-                        onValueChanged: streamsMixerEntry.node.audio.volume = value/100
+                        onValueChanged:streamsMixerEntry.node.audio.volume = value/100
                     }
                 }
             }

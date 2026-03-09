@@ -91,12 +91,10 @@ Item {
         iconAssign()
         volumeCheck()
         micCheck()
-        // console.log("",Audio.sink.name)
     }
     onSinkNameChanged: {
         iconAssign()
         volumeCheck()
-        // console.log("",sinkName)
     }
     RoundButton {
         id: volumeButton
@@ -172,6 +170,7 @@ Item {
             background.radius: volumePopupLoader.dimensions.radius
             Mixer {
                 id: mixer
+                active: popupShow
                 anchors.centerIn: parent
                 implicitWidth: parent.width - 5
                 implicitHeight: parent.height
