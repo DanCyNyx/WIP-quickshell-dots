@@ -61,11 +61,12 @@ Item {
                     // Have to click on the special workspace's button again to toggle it off
                     if (isSpecial) {
                         // Hyprland allows up to 97 special workspaces
-                        HyprData.hyprDispatch(`togglespecialworkspace ${itemRoot.names.split(":")[1]}`);
+                        // Hyprland changed, dispatcher commands need an update
+                        HyprData.hyprDispatch(`hl.dsp.workspace.toggle_special('${itemRoot.names.split(":")[1]}')`);
                     }
                     else { 
                         // Hyprland allows regular workspaces from 1 to the 32-bit integer limit
-                        if (Hyprland.focusedWorkspace.name != itemRoot.names) HyprData.hyprDispatch(`workspace ${itemRoot.names}`);
+                        if (Hyprland.focusedWorkspace.name != itemRoot.names) HyprData.hyprDispatch(`hl.dsp.focus({ workspace = ${itemRoot.names} })`);
                         else return 
                     }
                 }
