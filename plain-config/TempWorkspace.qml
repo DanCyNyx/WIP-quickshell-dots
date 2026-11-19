@@ -30,14 +30,13 @@ Item {
             required property var modelData
             property string names: modelData.name
             property string actives: modelData.active
-            property string color1: MainConfig.colors.text
             // property string rectcolor: "transparent"
             readonly property bool isurgent: modelData.urgent //&& HyprlandWorkspace.id == itemRoot.names
             readonly property bool isworkspaceactive: Hyprland.focusedWorkspace.name == itemRoot.names
             readonly property bool isSpecial: names.includes("special")
             // breaks things anchors.fill: parent
             implicitWidth: itemWidth
-            implicitHeight: itemHeight       
+            implicitHeight: itemHeight    
             Rectangle {
                 id: textbg
                 anchors.fill: textmouse
@@ -61,9 +60,11 @@ Item {
                 onClicked: {
                     // Have to click on the special workspace's button again to toggle it off
                     if (isSpecial) {
+                        // Hyprland allows up to 97 special workspaces
                         HyprData.hyprDispatch(`togglespecialworkspace ${itemRoot.names.split(":")[1]}`);
                     }
                     else { 
+                        // Hyprland allows regular workspaces from 1 to the 32-bit integer limit
                         if (Hyprland.focusedWorkspace.name != itemRoot.names) HyprData.hyprDispatch(`workspace ${itemRoot.names}`);
                         else return 
                     }

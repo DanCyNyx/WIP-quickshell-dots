@@ -13,15 +13,23 @@ Singleton {
     property string previousSourceName: ""
     readonly property var nodes: Pipewire.nodes.values.reduce((acc,node)=> {
         if (!node.isStream) {
-            if (node.isSink)
-                acc.sinks.push(node);
+            if (node.isSink) {
+                acc.sinks.push(node)
+                // Finds the easy effcts sink and saves it for link tracking
+                if (node.name.includes("easyeffects")) {
+                    acc.eeSink=node;
+                }
+            }
             else if (node.audio)
                 acc.sources.push(node);
         }
+        else if (node.audio.volume!=null) acc.streams.push(node);
         return acc;
     },{
         sources: [],
-        sinks: []
+        sinks: [],
+        streams:[],
+        eeSink:[],
     })
     readonly property list<PwNode> sinks: nodes.sinks
     readonly property list<PwNode> sources: nodes.sources
@@ -32,7 +40,6 @@ Singleton {
     property bool sourceMuted: !!source?.audio?.muted
     readonly property real hardMaxValue: 2.00 // prevents volume control from accidentally going beyond 200%
     signal sinkProtectionTriggered(string reason);
-
     function setSinkVolume(newVolume: real): void {
         if (sink?.ready && sink?.audio) {
             sink.audio.muted = false;
@@ -82,26 +89,28 @@ Singleton {
     // My Own Code- Currently only used by the mixer
     // Finds the easy effects sink by looking through all current link groups
     // Useful for Mixer.qml
-    readonly property alias eeRemover:eeRemover
     property PwNode easyEffectsSink
+    /* TODO mixer creates multiple Null entries without this variant included
+    Find a way to fix that and allow me to use eeSink in nodes for the easyeffects sink instead.
+    */
+    // This is redundant thanks to the code from caelestia dots (nodes reduce line)
     Variants {
         id: eeRemover
         model: Pipewire.linkGroups.values
         delegate: Item {
             id: eeItem
             required property PwLinkGroup modelData
-            property string targetName
             PwObjectTracker {
                 objects: [root.sink, modelData?.target, modelData?.source]
             }
             Component.onCompleted: {
-                eeItem.targetName = modelData?.target.name
                 if (eeItem.modelData?.target.name.includes("easyeffects") && eeItem.modelData?.target.isSink) {
                     root.easyEffectsSink = eeItem.modelData?.target
                 }
             }
         }
     }
+    // Could track if the node is corked and remove it from list to avoid mixer issues
     // Lists all easy effects Link Groups with stream sources
     property list<PwLinkGroup> eeLinkGroups
     property list<PwNode> eeLinkSources
@@ -123,11 +132,8 @@ Singleton {
             model: easyEffectsTracker.linkGroups
             delegate: Item {
                 required property PwLinkGroup modelData
-                PwObjectTracker {
-                    objects: [modelData?.target, modelData?.source]
-                }
                 Component.onCompleted: {
-                    if (modelData.source.audio != null && modelData.source.ready && modelData?.source.isStream && !modelData?.source.name.includes("ee") && !modelData?.source.name.includes("easyeffects")) {
+                    if (modelData!= null && modelData?.source.ready && modelData?.source.isStream && !modelData?.source.name.includes("ee") && !modelData?.source.name.includes("easyeffects")) {
                         root.eeLinkGroups.push(modelData)
                         root.eeLinkSources.push(modelData.source)
                     }
@@ -135,7 +141,6 @@ Singleton {
             }
         }
     }
-    
     // Lists all non-easy effects Link Groups with stream sources
     property list<PwLinkGroup> nonEELinkGroups
     property list<PwNode> nonEELinkSources
@@ -158,7 +163,7 @@ Singleton {
             delegate: Item {
                 required property PwLinkGroup modelData
                 PwObjectTracker {
-                    objects: [modelData?.target, modelData?.source]
+                    objects: [modelData.source, modelData.target]
                 }
                 Component.onCompleted: {
                     if (modelData!= null && modelData.source.ready && modelData?.source.isStream && !modelData?.source.name.includes("ee") && !modelData?.source.name.includes("easyeffects")) {

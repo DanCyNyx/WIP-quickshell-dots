@@ -15,6 +15,7 @@ ScrollView {
     onActiveChanged: {
         Audio.eeLinkLoader.active = Qt.binding(function(){return root.active})
         Audio.nonEELinkLoader.active = Qt.binding(function(){return root.active})
+        console.log(active)
     }
     PwObjectTracker {
         objects: [Audio.sink, Audio.source]

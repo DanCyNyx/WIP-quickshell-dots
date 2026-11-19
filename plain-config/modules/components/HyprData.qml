@@ -105,4 +105,53 @@ Singleton {
             }
         }
     }
+    // TODO transfer most of the hyprland specific stuff from TempWorkspace.qml to this file
+    // Start of my code
+    // Properties used in my part of the quickshell hyprland code
+    // Seperates the workspaces into special and regular ones
+    // acc defines the accumulated value (not needed) while workspace defines the individual workspace to check
+    property var workspaceList: allWorkspaces.values.reduce((acc,workspace)=> {
+        let isSpecial= workspace.name.includes("special")
+        if (isSpecial) 
+            acc.specialWorkspaces.push(workspace);
+        else 
+            acc.regularWorkspaces.push(workspace);
+        return acc;
+    },{
+        regularWorkspaces: [],
+        specialWorkspaces: [],
+    })
+    // property list<HyprlandWorkspace> specialWorkspaces
+    // property list<HyprlandWorkspace> regularWorkspaces
+    // function resetWorkspaceList() {
+    //     const workspaceList = root.allWorkspaces.values
+    //     root.specialWorkspaces.length=0
+    //     root.regularWorkspaces.length=0
+    //     let i = 0;
+    //     while (root.specialWorkspaces.length + root.regularWorkspaces.length < workspaceList.length) {
+    //         let workspace= workspaceList[i]
+    //         let isSpecial= workspace.name.includes("special")
+    //         if (isSpecial) root.specialWorkspaces.push(workspace);
+    //         else root.regularWorkspaces.push(workspace);
+    //         console.log(workspace.name)
+    //         if (root.specialWorkspaces.length + root.regularWorkspaces.length >= workspaceList.length) {
+    //             break;
+    //         }
+    //         i+=1
+    //     }
+    // }
+    /// Parses all the workspaces and seperates them into special and regular workspaces
+    // Variants {
+    //     model: Hyprland.workspaces.values
+    //         delegate: Item {
+    //         required property HyprlandWorkspace modelData
+    //         property real id: modelData?.id
+    //         property bool isSpecial: modelData?.name.includes("special")
+    //         onIdChanged: {
+    //             if (isSpecial) specialWorkspaces.push(modelData)
+    //             else regularWorkspaces.push(modelData)
+    //             //if (specialWorkspaces.length + regularWorkspaces.length > modelData.length)
+    //         }
+    //     }
+    // }
 }
