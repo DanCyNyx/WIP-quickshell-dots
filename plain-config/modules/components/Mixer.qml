@@ -8,6 +8,8 @@ import qs.modules.icons
 ScrollView {
     id: root
     property real sliderWidth: 100
+    property real percentWidth: 50
+    property real fontSize: MainConfig.text.fontSize +1
     property bool active: false
     contentWidth: availableWidth
     //contentHeight: availableHeight + 20
@@ -15,7 +17,7 @@ ScrollView {
     onActiveChanged: {
         Audio.eeLinkLoader.active = Qt.binding(function(){return root.active})
         Audio.nonEELinkLoader.active = Qt.binding(function(){return root.active})
-        console.log(active)
+        //console.log(active)
     }
     PwObjectTracker {
         objects: [Audio.sink, Audio.source]
@@ -38,21 +40,32 @@ ScrollView {
                         return media != undefined ? `${app} - ${media}` : app;
                     }
                     // Keeps the button within the confines of the ScrollView's width
-                    width: root.width - sinkButton.width
+                    width: sliderWidth + percentWidth - sinkButton.width
                     maximumLineCount:1
                     wrapMode:Text.Wrap
                     font.bold: true
+                    font.family: MainConfig.text.secondaryFontFamily
+                    renderType: Text.NativeRendering
+                    font.pointSize: fontSize
+                    font.hintingPreference: Font.PreferFullHinting
                 }
                 Button {
                     id: sinkButton
                     text: mixerEntry.node.audio.muted ? "unmute" : "mute"
                     onClicked: mixerEntry.node.audio.muted = !mixerEntry.node.audio.muted
+                    font.family: MainConfig.text.secondaryFontFamily
+                    font.pointSize: fontSize
+                    font.hintingPreference: Font.PreferFullHinting
                 }
             }
             RowLayout {
                 Label {
-                    Layout.preferredWidth: 50
+                    Layout.preferredWidth: percentWidth
                     text: `${Math.floor(mixerEntry.node.audio.volume * 100)}%`
+                    font.family: MainConfig.text.secondaryFontFamily
+                    renderType: Text.NativeRendering
+                    font.pointSize: fontSize
+                    font.hintingPreference: Font.PreferFullHinting
                 }
                 StyledSlider {
                     Layout.preferredWidth: sliderWidth
@@ -86,20 +99,31 @@ ScrollView {
                             const media = eeMixerEntry.node.properties["media.name"];
                             return media != undefined ? `Easy Effects - ${app} - ${media}` : app;
                         }
-                        width: root.availableWidth - eeButton.width
+                        width: sliderWidth + percentWidth - eeButton.width
                         maximumLineCount:1
                         wrapMode:Text.Wrap
+                        font.family: MainConfig.text.secondaryFontFamily
+                        renderType: Text.NativeRendering
+                        font.pointSize: fontSize
+                        font.hintingPreference: Font.PreferFullHinting
                     }
                     Button {
                         id: eeButton
                         text: eeMixerEntry.node.audio.muted ? "unmute" : "mute"
                         onClicked: eeMixerEntry.node.audio.muted = !eeMixerEntry.node.audio.muted
+                        font.family: MainConfig.text.secondaryFontFamily
+                        font.pointSize: fontSize
+                        font.hintingPreference: Font.PreferFullHinting
                     }
                 }
                 RowLayout {
                     Label {
-                        Layout.preferredWidth: 50
+                        Layout.preferredWidth: percentWidth
                         text: `${Math.floor(eeMixerEntry.node.audio.volume * 100)}%`
+                        font.family: MainConfig.text.secondaryFontFamily
+                        renderType: Text.NativeRendering
+                        font.pointSize: fontSize
+                        font.hintingPreference: Font.PreferFullHinting
                     }
                     StyledSlider {
                         Layout.preferredWidth: sliderWidth
@@ -128,20 +152,31 @@ ScrollView {
                             const media = streamsMixerEntry.node.properties["media.name"];
                             return media != undefined ? `${app} - ${media}` : app;
                         }
-                        width: root.availableWidth - streamsButton.width
+                        width: sliderWidth + percentWidth - streamsButton.width
                         maximumLineCount:1
                         wrapMode:Text.Wrap
+                        font.family: MainConfig.text.secondaryFontFamily
+                        renderType: Text.NativeRendering
+                        font.pointSize: fontSize
+                        font.hintingPreference: Font.PreferFullHinting
                     }
                     Button {
                         id:streamsButton
                         text: streamsMixerEntry.node.audio.muted ? "unmute" : "mute"
                         onClicked: streamsMixerEntry.node.audio.muted = !streamsMixerEntry.node.audio.muted
+                        font.family: MainConfig.text.secondaryFontFamily
+                        font.pointSize: fontSize
+                        font.hintingPreference: Font.PreferFullHinting
                     }
                 }
                 RowLayout {
                     Label {
-                        Layout.preferredWidth: 50
+                        Layout.preferredWidth: percentWidth
                         text: `${Math.floor(streamsMixerEntry.node.audio.volume * 100)}%`
+                        font.family: MainConfig.text.secondaryFontFamily
+                        renderType: Text.NativeRendering
+                        font.pointSize: fontSize
+                        font.hintingPreference: Font.PreferFullHinting
                     }
                     StyledSlider {
                         Layout.preferredWidth: sliderWidth

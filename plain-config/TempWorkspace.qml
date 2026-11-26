@@ -8,7 +8,7 @@ import Quickshell.Hyprland
 import Quickshell.Io
 import qs.modules
 import qs.modules.components
-// TODO workspace: can use alias instead of directly setting the itemWidth and height and listOrient
+// TODO Workspaces: can use alias instead of directly setting the itemWidth and height and listOrient
 Item {
     id: root
     property real itemWidth: (MainConfig.text.fontSize*1.2)
@@ -61,7 +61,6 @@ Item {
                     // Have to click on the special workspace's button again to toggle it off
                     if (isSpecial) {
                         // Hyprland allows up to 97 special workspaces
-                        // Hyprland changed, dispatcher commands need an update
                         HyprData.hyprDispatch(`hl.dsp.workspace.toggle_special('${itemRoot.names.split(":")[1]}')`);
                     }
                     else { 
@@ -81,23 +80,18 @@ Item {
                     opacity: 0.4
                 }
             }
-            // text for the workspace names
+            // Text for the workspace names
             /*
-            Text {
+            StyledText {
                 id: texts
-                font.family: MainConfig.mainFontFamily
                 anchors.centerIn: parent
                 // anchors.horizontalCenter: parent.horizontalCenter
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
-                wrapMode: Text.Wrap
-                renderType: Text.NativeRendering
-                font.hintingPreference: Font.PreferFullHinting
                 text: itemRoot.names
-                topPadding: itemHeight*0.13
-                font.pointSize: MainConfig.mainFontSize
-                color: !isworkspaceactive ? MainConfig.mainText : MainConfig.mainColor
-            }*/
+                topPadding: itemHeight*0.15
+                textColor: !isworkspaceactive ? MainConfig.colors.text : MainConfig.colors.main
+            } */
         }
     }
 }

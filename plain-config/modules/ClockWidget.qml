@@ -35,7 +35,5 @@ Item {
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         textIn: timeText
-        fontFamily: MainConfig.text.fontFamily
-        fontSize: MainConfig.text.fontSize
     }
 }

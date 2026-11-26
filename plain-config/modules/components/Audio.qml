@@ -1,11 +1,11 @@
 // Audio.qml: Used to access info from the Pipewire ipc of quickshell for volume access and control
+pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
 import Quickshell.Services.Pipewire
 import qs.modules
 import qs.modules.icons
-pragma Singleton
 // Code mostly from end-4's illogical impulse and soramane's caelestia-dots github repositories
 Singleton {
     id: root
@@ -90,7 +90,7 @@ Singleton {
     // Finds the easy effects sink by looking through all current link groups
     // Useful for Mixer.qml
     property PwNode easyEffectsSink
-    /* TODO mixer creates multiple Null entries without this variant included
+    /* TODO Mixer creates multiple Null entries without this variant included
     Find a way to fix that and allow me to use eeSink in nodes for the easyeffects sink instead.
     */
     // This is redundant thanks to the code from caelestia dots (nodes reduce line)

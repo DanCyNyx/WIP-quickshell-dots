@@ -39,32 +39,6 @@ Scope {
                 color: MainConfig.colors.main
                 opacity: MainConfig.opacity.main
             }
-            // LazyLoader {
-            //     id: testPopupLoader
-            //     active: false //buttonClicked
-            //     Popup {
-            //         id: testPopup
-            //         property var anchorItem: vertVolume.volumeText
-            //         readonly property var itemBarLocation: vertPanel.itemPosition(anchorItem)
-            //         readonly property real itemXPosition: itemBarLocation.x
-            //         readonly property real itemYPosition: itemBarLocation.y
-            //         property bool topMarginHigh: itemYPosition + height/2 > vertPanel.height
-            //         anchors {
-            //             top: true
-            //             left: true
-            //             //bottom: true
-            //         }
-            //         //implicitHeight: 100
-            //         implicitWidth: 56
-            //         margins {
-            //             top: topMarginHigh? vertPanel.height - height : itemYPosition + anchorItem?.height/2 - height/2 // Puts it in the middle-left: vertPanel.height/2 - implicitHeight/2
-            //             left: vertPanel.width * 0.13
-            //         }
-            //         // Component.onCompleted: {
-            //         //     console.log("hi", margins.top)
-            //         // }
-            //     }
-            // }
             ColumnLayout {
                 id: topColumn
                 anchors.top: parent.top

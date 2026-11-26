@@ -1,0 +1,41 @@
+// File where all the configuration options for the plain config are described
+// if the file being used doesn't have a designated config
+// The real file is BaseConfig.json, this file is just for the comments explaing what each value is
+// and what it's used for; since JSON.parse doesn't support jsonc files
+{
+    "colors": {
+        // Primary colors (color of bar). Default: "#ebe5ac", "#1c1919"
+        "primary": "#ebe5ac",
+        // Secondary Color of components. Default: "#417bd9"
+        "secondary": "#f3a245",
+        // Color of the text. Default: "#822b3a","#a92037","#ebe5ac"
+        "textcolor": "#9c2136",
+        // Color of the background panel. Default: "transparent"
+        "panel": "transparent",
+        // Color of the outlines of specific componenets. Default: "#201f1c"
+        "outline": "#201f1c",
+        // Color of inactive workspaces. Default: "#95916d"
+        "workspace": "#7a7659"
+    },
+    // Text options configuration
+    "text": {
+        // Fontsize of text. Default: 10 + 0.25
+        "fontSize": 10.25,
+        "fontFamily": "fleshandblood", // default "Fleshandblood"/"URW Bookman"
+        "secondaryFontFamily": "Liberation Serif"
+    },
+    // Opacity options
+    "opacity": {
+        // Opacity/transparency of parts of bar and items in bar
+        "mainOpacity": 0.65, // default 0.7
+        "textOpacity": 0.9, // default 0.9
+        "buttonOpacity": 0.25 // default 0.25
+    },
+    // Audio configuration
+    "audio": {
+        /////////////////
+        // Audio Stuff //
+        /////////////////
+        "folder": "freedesktop"
+    }
+}
