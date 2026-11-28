@@ -15,6 +15,7 @@ Item {
     property var sourceAudio: Audio.source?.audio
     property string sinkType: "Speaker"
     property var sinkName: Audio.sink?.name
+    property bool centerIcons: false
     property bool popupShow: false
     implicitWidth: volumeText.contentWidth + micText.contentWidth + micText.anchors.leftMargin //+ 10
     implicitHeight: Math.max(micText.contentHeight, volumeText.contentHeight)
@@ -33,13 +34,13 @@ Item {
     function volumeCheck() {
         if (sinkType == "Speaker") {
             if (sinkAudio?.volume <= 30/100 && sinkAudio?.volume !== 0 && !Audio.sinkMuted) {
-                volumeText.textIn = FontIcons.volume.speaker.low;
+                volumeText.textIn = centerIcons? FontIcons.volume.speakerCen.low : FontIcons.volume.speaker.low;
             } else if (sinkAudio?.volume >= 30/100 && sinkAudio?.volume <= 60/100 && !Audio.sinkMuted) {
-                volumeText.textIn = FontIcons.volume.speaker.medium;
+                volumeText.textIn = centerIcons? FontIcons.volume.speakerCen.medium : FontIcons.volume.speaker.medium;
             } else if (sinkAudio?.volume >= 60/100 && !Audio.sinkMuted) {
-                volumeText.textIn = FontIcons.volume.speaker.high;
+                volumeText.textIn = centerIcons? FontIcons.volume.speakerCen.high : FontIcons.volume.speaker.high;
             } else if (sinkAudio?.volume == 0 || Audio.sinkMuted) {
-                volumeText.textIn = FontIcons.volume.speaker.muted;
+                volumeText.textIn = centerIcons? FontIcons.volume.speakerCen.muted : FontIcons.volume.speaker.muted;
             }
         }
         else if (sinkType == "Bluetooth") {

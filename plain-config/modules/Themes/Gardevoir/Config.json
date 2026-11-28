@@ -1,0 +1,23 @@
+{
+    "colors": {
+        "primary": "#BFF7AE",
+        "secondary": "#f3a245",
+        "textcolor": "#9c2136",
+        "panel": "transparent",
+        "outline": "#201f1c",
+        "workspace": "#7a7659"
+    },
+    "text": {
+        "fontSize": 10.25,
+        "fontFamily": "fleshandblood",
+        "secondaryFontFamily": "Liberation Serif"
+    },
+    "opacity": {
+        "main": 0.65, 
+        "text": 0.9, 
+        "button": 0.25 
+    },
+    "audio": {
+        "folder": "freedesktop"
+    }
+}

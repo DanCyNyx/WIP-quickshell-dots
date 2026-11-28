@@ -12,13 +12,13 @@ Singleton {
     property QtObject brightness
     property QtObject network
     property QtObject mpris
-    property string iconFontFamily:"OpenDyslexic Nerd Font" // "JetBrainsMono Nerd Font Mono"
+    property string iconFontFamily:"OpenDyslexic Nerd Font Slash" // My version of ODnerd with some customised icons
     // List all the icons for each category here!
-    // All icons were gotten from the nerd-fonts page
+    // Most icons were gotten from the nerd-fonts page
     // Volume icons
     volume: QtObject {
         property string headphones: ""
-        property string headphonesMuted: "󰟎"
+        property string headphonesMuted: "\uefd0" // Custom. Nerd Default: "uf07ce"
         // property string handsFree
         // property string headset
         property string phone: ""
@@ -28,11 +28,20 @@ Singleton {
         property string bluetooth: ""
         property string bluetoothMuted: "󰂲"
         property QtObject speaker
+        property QtObject speakerCen
         speaker: QtObject {
-            property string low: "\uf026"
-            property string medium: "\uf027"
-            property string high: "\uf028"
+            // I made a custom font for these based off opendyslexic nerd font. It is included in the repo
+            // these are not centered in their width
+            property string muted: "\ueffb"
+            property string low: "\ueffc" 
+            property string medium: "\ueffe"
+            property string high: "\uefff"
+        }
+        speakerCen: QtObject {
             property string muted: "\ueee8"
+            property string low: "\uf027"
+            property string medium: "\ueffd"
+            property string high: "\uf028"
         }
     }
     // CPU, GPU and RAM icons

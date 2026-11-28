@@ -1,7 +1,7 @@
 // File where all the configuration options for the plain config are described
-// if the file being used doesn't have a designated config
+// if the file being used doesn't have designated config
 // The real file is BaseConfig.json, this file is just for the comments explaing what each value is
-// and what it's used for; since JSON.parse doesn't support jsonc files
+// and what it's used for; since the JSON.parse doesn't support jsonc files
 {
     "colors": {
         // Primary colors (color of bar). Default: "#ebe5ac", "#1c1919"

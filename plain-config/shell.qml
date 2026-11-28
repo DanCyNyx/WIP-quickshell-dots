@@ -14,6 +14,10 @@ ShellRoot {
         source: "Bar.qml"
     }
     Loader {
+        active: true
+        source: "./modules/Background.qml"
+    }
+    Loader {
         active: MainConfig.shell.vertBarActive
         source: "VerticalBar.qml"
     }

@@ -31,8 +31,8 @@ Singleton {
         streams:[],
         eeSink:[],
     })
-    readonly property list<PwNode> sinks: nodes.sinks
-    readonly property list<PwNode> sources: nodes.sources
+    readonly property list<PwNode> sinks: nodes?.sinks
+    readonly property list<PwNode> sources: nodes?.sources
     property bool ready: Pipewire.defaultAudioSink?.ready ?? false
     property PwNode sink: Pipewire.defaultAudioSink
     property PwNode source: Pipewire.defaultAudioSource

@@ -108,6 +108,7 @@ Scope {
                     Layout.alignment: Qt.AlignHCenter || Qt.AlignTop
                     implicitWidth: Math.max(micText.contentWidth,volumeText.contentWidth)
                     implicitHeight: volumeText.contentHeight //+ micText.contentHeight + 15
+                    centerIcons: true // center icons in width
                     // sourceAudio: null // gets rid of mic icon
                     volumeButton.width: buttonWidth
                     volumeButton.height: volumeButton.width //height + 4

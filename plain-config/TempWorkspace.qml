@@ -16,7 +16,7 @@ Item {
     property real rectRad: itemWidth/2
     property var listOrient: ListView.Horizontal
     property alias listView: listView
-    implicitWidth: itemWidth*14.8
+    implicitWidth:  itemWidth*14.8
     implicitHeight: itemHeight*14.8
     ListView {
         id: listView
